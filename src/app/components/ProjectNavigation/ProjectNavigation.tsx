@@ -3,10 +3,12 @@ import {
   FC,
   useRef,
 } from 'react';
-import { useLocalStorage } from '@/app/hooks/useLocalStorage';
-import { cn } from '@/app/utils/cn';
+import Link from 'next/link';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import Resizer from './Resizer';
 import List from './List';
+import Image from 'next/image';
+import UserOptions from './UserOptions';
 
 interface ProjectNavigationProps {
   minWidth?: number;
@@ -33,12 +35,13 @@ const ProjectNavigation: FC<ProjectNavigationProps> = ({
 
   return (
     <div
-      className="w-[200px] h-full flex items-stretch justify-between shadow-xl relative"
+      className="w-[200px] h-full max-h-screen overflow-hidden flex items-stretch justify-between shadow-xl relative"
       ref={navigationRef}
     >
-      <div className="w-full flex-1 h-full p-4">
+      <div className="w-full h-full max-h-screen flex-1 flex flex-col p-4">
         <h1 className="text-xl mb-5">SONGS 🎵</h1>
         <List />
+        <UserOptions />
       </div>
       <Resizer
         widthSetter={setNavigationWidth}

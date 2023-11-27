@@ -6,7 +6,7 @@ const Home = () => {
     <div className="w-full min-h-screen flex flex-col items-center bg-gradient-bg bg-cover bg-right">
       <MainHeader />
       <main className="w-full h-full flex flex-col items-center gap-5 p-[80px_50px]">
-        <h1 className="max-w-[450px] select-none text-center text-6xl text-blue-700 font-bold [text-shadow:_2px_2px_10px_#FFF]">
+        <h1 className="max-w-[450px] select-none text-center text-6xl text-transparent font-bold bg-clip-text bg-gradient-to-r from-blue-700 to-pink-500 [text-shadow:_2px_2px_10px_#DDF6]">
           BEST WAY TO START A SONG
         </h1>
         <Link
