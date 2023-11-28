@@ -6,7 +6,7 @@ const layout = ({
   children: React.ReactNode
 }) => {
   return (
-    <div className="w-full h-screen bg-gradient-to-b from-theme-4 to-theme-5 flex justify-between">
+    <div className="w-full h-screen bg-gray-100 flex justify-between">
       <ProjectNavigation />
       {children}
     </div>

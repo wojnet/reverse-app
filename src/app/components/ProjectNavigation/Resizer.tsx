@@ -6,13 +6,11 @@ import {
 } from 'react';
 
 interface ResizerProps {
-  resizerWidth?: number;
   widthSetter: (width: number) => void;
   navigationRef: RefObject<HTMLElement>;
 }
 
 const Resizer: FC<ResizerProps> = ({
-  resizerWidth = 10,
   widthSetter, 
   navigationRef
 }) => {
@@ -46,10 +44,10 @@ const Resizer: FC<ResizerProps> = ({
 
   return (
     <div
-      className={`w-[${Math.floor(resizerWidth)}px] h-full bg-transparent flex justify-center absolute translate-x-[${Math.floor(resizerWidth/2)}px] right-0 cursor-e-resize group`}
+      className={`w-[20px] h-full bg-transparent flex justify-center absolute translate-x-[10px] right-0 cursor-e-resize group`}
       ref={resizerRef}
     >
-      <div className={`w-[2px] h-full bg-transparent group-hover:bg-blue-200 transition`}></div>
+      <div className={`w-[2px] h-full bg-transparent group-hover:bg-slate-200 transition`}></div>
     </div>
   );
 }

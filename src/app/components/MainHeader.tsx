@@ -19,7 +19,7 @@ const MainHeader: FC<MainHeaderProps> = async ({}) => {
       <section className="flex items-center gap-4">
         <button
           className="hover:opacity-75 transition"
-          onClick={() => signIn()}
+          onClick={() => alert(123)}
         >
           Sign in
         </button>

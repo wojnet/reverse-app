@@ -1,5 +1,7 @@
-import Link from 'next/link';
+"use client"
 import { FC } from 'react';
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { cn } from '@/utils/cn';
 
 interface ListItemProps {
   id: string;
@@ -12,14 +14,32 @@ const ListItem: FC<ListItemProps> = ({
   name = "(no name)",
   savedChanges = true,
 }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const onSelectProject = () => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+    if (!id) {
+      current.delete("id");
+    } else {
+      current.set("id", id);
+    }
+
+    const search = current.toString();
+    const query = search ? `?${search}` : "";
+
+    router.push(`${pathname}${query}`);
+  }
+
   return (
-    <Link
-      href={`/create/${id}`}
-      className="w-full h-10 flex justify-between items-center shadow-md rounded-xl px-2 cursor-pointer outline-transparent hover:outline hover:outline-1 hover:outline-slate-300 hover:bg-slate-50 select-none transition"
+    <button
+      onClick={onSelectProject}
+      className={cn(`bg-gray-200`, "w-full h-10 flex justify-between items-center shadow-md rounded-xl px-2 cursor-pointer outline-transparent hover:outline hover:outline-2 hover:outline-slate-100 hover:scale-95 select-none transition")}
     >
       <p className="italic text-sm">{name}</p>
-      <div className="w-2 h-2 bg-slate-300 rounded-full"></div>
-    </Link>
+      <div className="w-2 h-2 bg-gray-700 rounded-full"></div>
+    </button>
   );
 }
 
