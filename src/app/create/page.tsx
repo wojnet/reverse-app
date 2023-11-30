@@ -1,27 +1,36 @@
-"use client"
 import { FC } from "react";
-import { useSearchParams } from "next/navigation";
-import { sampleSong } from "@/data/sample/sampleSong";
+// import { sampleSong as song } from "@/data/sample/sampleSong";
 import { SongType } from "../types/song";
 import TitleBlock from "../components/SongBlocks/TitleBlock";
 import TextBlock from "../components/SongBlocks/TextBlock";
 import CommentBlock from "../components/SongBlocks/CommentBlock";
+import { getSong } from "@/utils/getSong";
+import { getServerSession } from "next-auth";
 
-interface ICreate {}
 
-const create: FC<ICreate> = () => {
-  const song: SongType = sampleSong as SongType;
+interface ICreate {
+  searchParams: { id: string }
+}
 
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+const create: FC<ICreate> = async ({ searchParams }: { searchParams: { id: string } }) => {
+  const session = await getServerSession();
+  console.log(session);
 
-  if (id === null) return (
+  if (!searchParams.id) return (
     <p className="text-xl flex-1 text-center m-5">
       No song selected
     </p>
   );
 
-  const songContents = song.contents.map((element, index) => {
+  const songData: SongType | null | undefined = await getSong(searchParams.id);
+  
+  if (!songData) return (
+    <p className="text-xl flex-1 text-center m-5">
+      No song found
+    </p>
+  );
+
+  const songContents = songData.contents.map((element, index) => {
     switch(element.type) {
       case "TITLE_BLOCK":
         return <TitleBlock 
