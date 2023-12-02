@@ -5,11 +5,7 @@ interface TextBlockProps extends TextBlockDataType {}
 
 const TextBlock: FC<TextBlockProps> = ({ paragraphs }) => {
   const paragraphElements = paragraphs?.map((paragraph, index) => {
-    return (
-      <p>
-        {paragraph.text}
-      </p>
-    );
+    return <p key={index}>{paragraph.text}</p>;
   })
   
   return (
