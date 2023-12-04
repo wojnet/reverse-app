@@ -14,7 +14,15 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         'gradient-bg': "url('/images/background.jpg')"
       },
-    }
+      colors: {
+        'app': {
+          'lighter-gray': "#343433",
+          'light-gray': "#272726",
+          'gray': "#1e1f1f",
+          'text': "#ddd"
+        }
+      }
+    },
   },
   plugins: [],
 }
