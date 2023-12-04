@@ -11,14 +11,11 @@ export const GET = async (req: NextRequest) => {
   try {
     const client = await clientPromise;
     const db = client.db("songwritingApp");
-    const collection = db.collection("projects");
+    const collection = db.collection("userData");
 
-    const song = await collection.findOne({
-      _id: new ObjectId(idParam),
-      userId: token?.sub
-    });
+    const songs = await collection.findOne({ _id: new ObjectId(idParam) });
 
-    return Response.json(song);
+    return Response.json(songs);
   } catch (error) {
     return Response.error();
   }

@@ -1,10 +1,8 @@
 import { NextRequest } from "next/server";
 import clientPromise from "@lib/mongo/clientPromise";
 import { getToken } from "next-auth/jwt";
-import { ObjectId } from "mongodb";
 
 export const GET = async (req: NextRequest) => {
-  const idParam = req.nextUrl.searchParams.get("id") || "";
   const secret = process.env.NEXTAUTH_SECRET;
   const token = await getToken({ req, secret });
 
@@ -13,12 +11,21 @@ export const GET = async (req: NextRequest) => {
     const db = client.db("songwritingApp");
     const collection = db.collection("projects");
 
-    const song = await collection.findOne({
-      _id: new ObjectId(idParam),
-      userId: token?.sub
+    const projectsCursor = collection.find({
+        userId: token?.sub,
+    }, {
+      projection: {
+        _id: true,
+        name: true,
+      }
     });
 
-    return Response.json(song);
+    let projects = [];
+    for await (const project of projectsCursor) {
+        projects.push(project);
+    }
+
+    return Response.json(projects);
   } catch (error) {
     return Response.error();
   }

@@ -15,14 +15,6 @@ const Home = () => {
         >
           GET STARTED!
         </Link>
-        { [...new Array(5)].map((e, index) => <div key={index} className="text-center max-w-[450px] flex flex-col items-center m-5">
-          <h2 className="w-fit text-slate-700 text-2xl border border-1 border-slate-600 rounded-xl p-[3px_8px] mb-3">
-            lol
-          </h2>
-          <p className="italic text-slate-600">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat optio amet maxime. Ex sequi omnis doloribus voluptatum expedita aspernatur, sit magnam nobis tempora iusto velit unde, provident reiciendis totam exercitationem.
-          </p>
-        </div>) }
       </main>
     </div>
   );
