@@ -1,8 +1,9 @@
 import { cookies, headers } from "next/headers";
-import { ProtocalType } from "@/app/types/protocal";
+import { ProtocalType } from "@/types/protocal";
 import { getProtocal } from "./getProtocal";
+import next from "next";
 
-export const getSong = async (id: string): Promise<any> => {
+export const getSong = async (id: string | undefined): Promise<any> => {
   if (id?.length !== 24) return;
 
   const host = headers().get("host");
@@ -11,7 +12,6 @@ export const getSong = async (id: string): Promise<any> => {
 
   return await fetch(`${protocal}://${host}/api/song?id=${id}`, {
     method: "GET",
-    cache: "no-store", // for now
     headers: {
       Authorization: `Bearer ${token}`,
     },

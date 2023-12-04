@@ -10,12 +10,12 @@ const UserOptions: FC<UserOptionsProps> = ({}) => {
 
   if (session) {
     return (
-      <div className="flex gap-2 items-center select-none">
+      <div className="flex-1 flex gap-2 items-end select-none">
         <UserImage
           session={session}
         />
         <button
-          className="text-xs text-slate-800 font-bold border border-1 border-slate-600 p-[2px_6px] rounded-xl shadow-lg hover:scale-95 transition"
+          className="text-xs font-bold border border-1 border-slate-600 p-[2px_6px] rounded-xl shadow-lg hover:scale-95 transition"
           onClick={() => signOut({ callbackUrl: "/" })}
         >
           Sign out

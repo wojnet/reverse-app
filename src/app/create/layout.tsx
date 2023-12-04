@@ -1,4 +1,4 @@
-import ProjectNavigation from "../components/ProjectNavigation/ProjectNavigation";
+import Providers from "@/redux/provider";
 
 const layout = ({
   children
@@ -6,10 +6,11 @@ const layout = ({
   children: React.ReactNode
 }) => {
   return (
-    <div className="w-full h-screen bg-gray-100 flex justify-between">
-      <ProjectNavigation />
-      {children}
-    </div>
+    <Providers>
+      <div className="w-full h-screen bg-app-gray text-app-text flex justify-between">
+        {children}
+      </div>
+    </Providers>
   );
 }
 

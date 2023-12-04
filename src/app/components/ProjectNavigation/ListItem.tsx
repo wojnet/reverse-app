@@ -1,45 +1,44 @@
 "use client"
-import { FC } from 'react';
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { cn } from '@/utils/cn';
+import { FC, useEffect } from 'react';
+import { useSearchParams } from "next/navigation";
+import ListItemOptions from './ListItemOptions';
 
-interface ListItemProps {
-  id: string;
-  name?: string;
-  savedChanges?: boolean;
+type ListItemProps = {
+  id: string,
+  name?: string,
+  setUrlParam: (key: string, value: string) => void,
 }
 
 const ListItem: FC<ListItemProps> = ({
   id = "",
   name = "(no name)",
-  savedChanges = true,
+  setUrlParam,
 }) => {
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const searchParamsId = searchParams.get("id");
+  const idSearchParam = searchParams.get("id"); 
 
   const onSelectProject = () => {
-    const current = new URLSearchParams(Array.from(searchParams.entries()));
-    if (!id) {
-      current.delete("id");
-    } else {
-      current.set("id", id);
+    if (idSearchParam !== id) {
+      setUrlParam("id", id);
     }
-
-    const search = current.toString();
-    const query = search ? `?${search}` : "";
-
-    router.push(`${pathname}${query}`);
   }
 
+  useEffect(() => {
+    console.log("ListItem mounted");
+  }, []);
+
   return (
-    <button
-      onClick={onSelectProject}
-      className={cn(`bg-gray-200`, "w-full h-10 flex justify-between items-center shadow-md rounded-xl px-2 cursor-pointer outline-transparent hover:outline hover:outline-2 hover:outline-slate-100 hover:scale-95 select-none transition")}
-    >
-      <p className="italic text-sm">{name}</p>
-      <div className="w-2 h-2 bg-gray-700 rounded-full"></div>
-    </button>
+    <div className="flex gap-2">
+      <button
+        onClick={onSelectProject}
+        className="relative w-full h-10 bg-app-gray flex justify-between items-center shadow-md rounded-xl px-3 cursor-pointer outline-transparent hover:outline hover:outline-2 hover:outline-slate-100 hover:scale-95 select-none z-10 group transition"
+      >
+        <p className="italic text-sm">{name}</p>
+        { searchParamsId === id && <div className="absolute left-0 w-full h-full rounded-xl outline outline-2 outline-slate-500 outline-offset-0 group-hover:outline-transparent"></div>}
+      </button>
+      <ListItemOptions />
+    </div>
   );
 }
 

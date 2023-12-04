@@ -1,5 +1,5 @@
 import { cookies, headers } from "next/headers";
-import { ProtocalType } from "@/app/types/protocal";
+import { ProtocalType } from "@/types/protocal";
 import { getProtocal } from "./getProtocal";
 
 export const getUserData = async (): Promise<any> => {
@@ -13,5 +13,5 @@ export const getUserData = async (): Promise<any> => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }).then((res) => res.json());
+  }).then(res => res.json());
 };

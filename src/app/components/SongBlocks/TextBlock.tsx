@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TextBlockDataType } from '@/app/types/song';
+import { TextBlockDataType } from '@/types/song';
 
 interface TextBlockProps extends TextBlockDataType {}
 

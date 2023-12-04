@@ -22,6 +22,7 @@ export type CommentBlockDataType = {
 export type SongType = {
   _id: string,
   name: string,
+  userId: string,
   contents: {
     type: "TITLE_BLOCK" | "TEXT_BLOCK" | "COMMENT_BLOCK",
     data: any

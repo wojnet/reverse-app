@@ -1,4 +1,4 @@
-import { CommentBlockDataType } from '@/app/types/song';
+import { CommentBlockDataType } from '@/types/song';
 import { FC } from 'react';
 
 interface CommentBlockProps extends CommentBlockDataType {}

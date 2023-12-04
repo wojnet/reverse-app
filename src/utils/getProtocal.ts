@@ -1,5 +1,5 @@
-import { NodeEnvType } from "@/app/types/environmentVariables";
-import { ProtocalType } from "@/app/types/protocal";
+import { NodeEnvType } from "@/types/environmentVariables";
+import { ProtocalType } from "@/types/protocal";
 
 export const getProtocal = (environment: NodeEnvType): ProtocalType => {
   switch(environment) {
