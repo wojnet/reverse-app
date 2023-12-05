@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import clientPromise from "@lib/mongo/clientPromise";
 import { getToken } from "next-auth/jwt";
 import { ObjectId } from "mongodb";
+import { cc } from "@/utils/consoleColor";
 
 export const GET = async (req: NextRequest) => {
   const idParam = req.nextUrl.searchParams.get("id") || "";
@@ -18,11 +19,11 @@ export const GET = async (req: NextRequest) => {
       userId: token?.sub
     });
 
-    console.log("[CONSOLE][SUCCESS] /api/song:", song, "token:", token);
+    console.log(`${cc("[CONSOLE][SUCCESS]", "success")} /api/song:`, song, "token:", token);
     return Response.json(song);
   } catch (error) {
 
-    console.log("[CONSOLE][ERROR] /api/song:", error);
+    console.log(`${cc("[CONSOLE][ERROR]", "error")} /api/song:`, error);
     return Response.error();
   }
 };

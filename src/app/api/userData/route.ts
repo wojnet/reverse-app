@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import clientPromise from "@lib/mongo/clientPromise";
 import { getToken } from "next-auth/jwt";
+import { cc } from "@/utils/consoleColor";
 
 export const GET = async (req: NextRequest) => {
   const secret = process.env.NEXTAUTH_SECRET;
@@ -16,11 +17,11 @@ export const GET = async (req: NextRequest) => {
       { projection: { projects: true } }
     );
 
-    console.log("[CONSOLE][SUCCESS] /api/userData:", userData?.projects);
+    console.log(`${cc("[CONSOLE][SUCCESS]", "success")} /api/userData:`, userData?.projects);
     return Response.json(userData?.projects);
   } catch (error) {
 
-    console.log("[CONSOLE][ERROR] /api/userData:", error);
+    console.log(`${cc("[CONSOLE][ERROR]", "error")} /api/userData:`, error);
     return Response.error();
   }
 };

@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import clientPromise from "@lib/mongo/clientPromise";
 import { getToken } from "next-auth/jwt";
 import { ObjectId } from "mongodb";
+import { cc } from "@/utils/consoleColor";
 
 export const GET = async (req: NextRequest) => {
   const idParam = req.nextUrl.searchParams.get("id") || "";
@@ -15,11 +16,11 @@ export const GET = async (req: NextRequest) => {
 
     const songs = await collection.findOne({ _id: new ObjectId(idParam) });
 
-    console.log("[CONSOLE][SUCCESS] /api/songs:", songs);
+    console.log(`${cc("[CONSOLE][SUCCESS]", "success")} /api/songs:`, songs);
     return Response.json(songs);
   } catch (error) {
 
-    console.log("[CONSOLE][ERROR] /api/songs:", error);
+    console.log(`${cc("[CONSOLE][ERROR]", "error")} /api/songs:`, error);
     return Response.error();
   }
 };
