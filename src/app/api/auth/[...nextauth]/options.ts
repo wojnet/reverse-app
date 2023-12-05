@@ -25,7 +25,6 @@ export const options: NextAuthOptions = {
             userId: user.id,
             name: user.name,
             role: "user",
-            projects: { data: [] },
           };
 
           await collection.insertOne(newUserData);
