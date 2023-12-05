@@ -7,7 +7,8 @@ export const getSong = async (id: string | undefined): Promise<any> => {
 
   const host = headers().get("host");
   const protocal: ProtocalType = getProtocal(process.env.NODE_ENV);
-  const token = cookies().get("next-auth.session-token")?.value;
+  const accessKeyCookieName: string = process.env.JWT_ACCESS_TOKEN_COOKIE_NAME || "";
+  const token = cookies().get(accessKeyCookieName)?.value;
 
   const song = await fetch(`${protocal}://${host}/api/song?id=${id}`, {
     method: "GET",
