@@ -3,10 +3,9 @@ import { ProtocalType } from "@/types/protocal";
 import { getProtocal } from "../getProtocal";
 
 export const getProjects = async (): Promise<any> => {
-  const host = window.location.host;
-  const protocal: ProtocalType = getProtocal(process.env.NODE_ENV);
+  const serverUrl = process.env.SERVER_URL;
 
-  return await fetch(`${protocal}://${host}/api/projects`, {
+  return await fetch(`${serverUrl}/api/projects`, {
     method: "GET",
     cache: "no-store", // for now
     // headers: {

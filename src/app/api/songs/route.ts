@@ -15,8 +15,11 @@ export const GET = async (req: NextRequest) => {
 
     const songs = await collection.findOne({ _id: new ObjectId(idParam) });
 
+    console.log("[SUCCESS] /api/songs:", songs);
     return Response.json(songs);
   } catch (error) {
+
+    console.log("[ERROR] /api/songs:", error);
     return Response.error();
   }
 };

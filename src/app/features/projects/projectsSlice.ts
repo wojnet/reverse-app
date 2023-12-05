@@ -23,7 +23,7 @@ export const fetchProjectsData = createAsyncThunk(
   "projects/fetchProjectsData",
   async () => {
     const projectsData: ProjectType[] = await getProjects();
-    return projectsData
+    return projectsData;
   }
 )
 

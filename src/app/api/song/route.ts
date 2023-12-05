@@ -18,8 +18,11 @@ export const GET = async (req: NextRequest) => {
       userId: token?.sub
     });
 
+    console.log("[SUCCESS] /api/song:", song);
     return Response.json(song);
   } catch (error) {
+
+    console.log("[ERROR] /api/song:", error);
     return Response.error();
   }
 };
