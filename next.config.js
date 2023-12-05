@@ -1,5 +1,7 @@
 const million = require("million/compiler");
 
+let config;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -17,9 +19,13 @@ const millionConfig = {
     auto: true
 }
 
-module.exports = million.next(
+if (process.env.USING_MILLION === "true") {
+  config = million.next(
     nextConfig,
     millionConfig
-);
+  );
+} else {
+  config = nextConfig;
+}
 
-// module.exports = nextConfig;
+module.exports = config;
