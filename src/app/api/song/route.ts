@@ -18,7 +18,7 @@ export const GET = async (req: NextRequest) => {
       userId: token?.sub
     });
 
-    console.log("[CONSOLE][SUCCESS] /api/song:", song);
+    console.log("[CONSOLE][SUCCESS] /api/song:", song, "token:", token);
     return Response.json(song);
   } catch (error) {
 
