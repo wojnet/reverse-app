@@ -1,7 +1,6 @@
 import { cookies, headers } from "next/headers";
 import { ProtocalType } from "@/types/protocal";
 import { getProtocal } from "./getProtocal";
-import next from "next";
 
 export const getSong = async (id: string | undefined): Promise<any> => {
   if (id?.length !== 24) return;
