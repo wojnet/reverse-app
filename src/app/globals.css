@@ -9,3 +9,13 @@
 body {
   margin: auto;
 }
+
+@layer components {
+  .custom-input {
+    height: 20px;
+    background: none;
+    padding-inline: 10px;
+    border: 1px solid white;
+    border-radius: 20px;
+  }
+}
