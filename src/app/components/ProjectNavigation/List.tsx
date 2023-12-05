@@ -23,7 +23,7 @@ const List: FC<ListProps> = ({ setUrlParam }) => {
   />);
 
   useEffect(() => {
-    console.log("List mounted");
+    // console.log("List mounted");
     dispatch(fetchProjectsData());
   }, []);
 

@@ -14,12 +14,12 @@ type CreateType = {
 
 const Create: FC<CreateType> = async ({ searchParams }) => {
   let songData: SongType = await getSong(searchParams.id);
+  console.log("[CONSOLE] /create page.tsx songData:", songData);
   // let projectsData: ProjectType[] = await getProjects();
 
   return (
     <Workspace
       songData={songData}
-      // projectsData={projectsData}
     />
   );
 };

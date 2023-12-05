@@ -64,8 +64,8 @@ const Workspace: FC<WorkspaceProps> = ({ songData }) => {
   });
 
   useEffect(() => {
-    console.log("Workspace mounted");
-  });
+    // console.log("Workspace mounted");
+  }, []);
 
   return (
     <>

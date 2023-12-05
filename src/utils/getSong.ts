@@ -9,10 +9,14 @@ export const getSong = async (id: string | undefined): Promise<any> => {
   const protocal: ProtocalType = getProtocal(process.env.NODE_ENV);
   const token = cookies().get("next-auth.session-token")?.value;
 
-  return await fetch(`${protocal}://${host}/api/song?id=${id}`, {
+  const song = await fetch(`${protocal}://${host}/api/song?id=${id}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
   }).then((res) => res.json());
+
+  console.log("[CONSOLE] function getSong() returned:", song);
+
+  return song;
 };

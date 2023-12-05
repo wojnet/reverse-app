@@ -36,7 +36,7 @@ const ProjectNavigation: FC<ProjectNavigationProps> = ({
   }
 
   useEffect(() => {
-    console.log("ProjectNavigation mounted");
+    // console.log("ProjectNavigation mounted");
   }, []);
 
   return (

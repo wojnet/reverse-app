@@ -16,11 +16,11 @@ export const GET = async (req: NextRequest) => {
       { projection: { projects: true } }
     );
 
-    console.log("[SUCCESS] /api/userData:", userData?.projects);
+    console.log("[CONSOLE][SUCCESS] /api/userData:", userData?.projects);
     return Response.json(userData?.projects);
   } catch (error) {
 
-    console.log("[ERROR] /api/userData:", error);
+    console.log("[CONSOLE][ERROR] /api/userData:", error);
     return Response.error();
   }
 };

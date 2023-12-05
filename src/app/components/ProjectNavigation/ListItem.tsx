@@ -25,7 +25,7 @@ const ListItem: FC<ListItemProps> = ({
   }
 
   useEffect(() => {
-    console.log("ListItem mounted");
+    // console.log("ListItem mounted");
   }, []);
 
   return (

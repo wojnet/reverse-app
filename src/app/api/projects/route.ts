@@ -25,11 +25,11 @@ export const GET = async (req: NextRequest) => {
         projects.push(project);
     }
 
-    console.log("[SUCCESS] /api/projects:", projects);
+    console.log("[CONSOLE][SUCCESS] /api/projects:", projects);
     return Response.json(projects);
   } catch (error) {
 
-    console.log("[ERROR] /api/projects:", error);
+    console.log("[CONSOLE][ERROR] /api/projects:", error);
     return Response.error();
   }
 };
