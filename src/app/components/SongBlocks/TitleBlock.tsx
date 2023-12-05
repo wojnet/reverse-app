@@ -3,11 +3,13 @@ import { FC } from 'react';
 interface TitleBlockProps {
   title?: string;
   subtitle?: string;
+  editMode: boolean;
 }
 
 const TitleBlock: FC<TitleBlockProps> = ({
   title,
-  subtitle
+  subtitle,
+  editMode,
 }) => {
   return (
     <div className="w-full flex flex-col items-center gap-2 hover:outline hover:outline-1 hover:outline-slate-300 rounded-lg p-5">

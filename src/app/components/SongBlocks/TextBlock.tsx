@@ -1,9 +1,14 @@
 import { FC } from 'react';
 import { TextBlockDataType } from '@/types/song';
 
-interface TextBlockProps extends TextBlockDataType {}
+interface TextBlockProps extends TextBlockDataType {
+  editMode: boolean;
+};
 
-const TextBlock: FC<TextBlockProps> = ({ paragraphs }) => {
+const TextBlock: FC<TextBlockProps> = ({
+  paragraphs,
+  editMode,
+}) => {
   const paragraphElements = paragraphs?.map((paragraph, index) => {
     return <p key={index}>{paragraph.text}</p>;
   })
