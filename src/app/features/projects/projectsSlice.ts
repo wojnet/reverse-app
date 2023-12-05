@@ -25,12 +25,31 @@ export const fetchProjectsData = createAsyncThunk(
     const projectsData: ProjectType[] = await getProjects();
     return projectsData;
   }
-)
+);
+
+export const changeProjectName = createAsyncThunk(
+  "projects/changeProjectName",
+  async ({ id, name }: { id: string, name: string }) => {
+    const mongoResponse = await fetch(`/api/projects/changeName`, {
+      method: "PUT",
+      cache: "no-store",
+      body: JSON.stringify({ id, name }),
+    }).then(res => res.json());
+    return mongoResponse;
+  }
+);
 
 export const projectsSlice = createSlice({
   name: "projects",
   initialState,
-  reducers: {},
+  reducers: {
+    changeProjectName: (state, action: { payload: { id: string, name: string } }) => {
+      state.projectsData = state.projectsData.map((project) => {
+        return project._id !== action.payload.id ? 
+          project : { ...project, name: action.payload.name }
+      });
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchProjectsData.pending, (state) => {
       state.isLoading = true;
@@ -42,6 +61,23 @@ export const projectsSlice = createSlice({
     builder.addCase(fetchProjectsData.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
+    });
+
+    builder.addCase(changeProjectName.pending, (state) => {
+      
+    });
+    builder.addCase(changeProjectName.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.projectsData = state.projectsData.map(project => {
+        let tempProject = project;
+        if (tempProject._id === action.payload.id) {
+          tempProject.name = action.payload.name;
+        }
+        return tempProject;
+      });
+    });
+    builder.addCase(changeProjectName.rejected, (state, action) => {
+      
     });
   }
 });
