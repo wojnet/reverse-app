@@ -1,0 +1,1 @@
+export type BlockType = "TITLE_BLOCK" | "TEXT_BLOCK" | "COMMENT_BLOCK";
