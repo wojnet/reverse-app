@@ -11,7 +11,7 @@ import { getEmptyBlock } from "./emptyBlocks";
 import { saveSong } from "@/utils/song/saveSong";
   
 export type SongState = {
-  songData: SongType | null,
+  songData: SongType,
   isLoading: boolean,
   error: string | null | undefined,
   isSaved: boolean,
@@ -19,7 +19,12 @@ export type SongState = {
 }
 
 const initialState: SongState = {
-  songData: null,
+  songData: {
+    _id: "",
+    name: "",
+    userId: "",
+    contents: []
+  },
   isLoading: false,
   error: null,
   isSaved: true,
@@ -51,7 +56,7 @@ export const songSlice = createSlice({
   initialState,
   reducers: {
     changeBlock: (state, action: PayloadAction<{ index: number, changedBlockData: any }>) => {
-      if (state.songData === null) return;
+      if (state.songData === null) return state;
 
       const blockIndex = action.payload.index;
       const changedBlockData = action.payload.changedBlockData;
