@@ -19,7 +19,10 @@ const config: Config = {
           'lighter-gray': "#343433",
           'light-gray': "#272726",
           'gray': "#1e1f1f",
-          'text': "#ddd"
+          'text': "#ddd",
+          'outline': "#64748b",
+          'lighter-outline': "#f1f5f9",
+          'darker-outline': "#404c5c",
         }
       }
     },
