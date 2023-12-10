@@ -1,6 +1,6 @@
-import TitleBlock from './TitleBlock';
-import TextBlock from './TextBlock';
-import CommentBlock from './CommentBlock';
+import TitleBlock from './Blocks/TitleBlock';
+import TextBlock from './Blocks/TextBlock';
+import CommentBlock from './Blocks/CommentBlock';
 export {
     TitleBlock,
     TextBlock,

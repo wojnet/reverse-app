@@ -12,6 +12,7 @@ import ToggleSwitch from '../ToggleSwitch';
 import EditableInput from '../EditableInput';
 import { changeProjectName } from '@/app/features/projects/projectsSlice';
 import { useSearchParams } from 'next/navigation';
+import { saveChanges, selectIsSaveLoading, selectIsSaved } from '@/app/features/song/songSlice';
 
 type CreateOptionBarProps = {
   setUrlParam: (key: string, value: string) => void,
@@ -25,6 +26,8 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({ setUrlParam, initialProject
 
   const dispatch = useAppDispatch();
   const editMode = useAppSelector(selectEditMode);
+  const isSaved = useAppSelector(selectIsSaved);
+  const isSaveLoading = useAppSelector(selectIsSaveLoading);
 
   const handleOnChangeToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
@@ -49,7 +52,7 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({ setUrlParam, initialProject
 
   return (
     <div
-        className="w-full h-10 bg-app-light-gray flex justify-between items-center gap-2 px-4 shadow-lg"
+        className="w-full h-12 bg-app-light-gray flex justify-between items-center gap-2 px-4 shadow-lg"
     >
       <section className="flex items-center gap-2">
         <p className="text-sm">
@@ -60,6 +63,16 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({ setUrlParam, initialProject
           state={editMode}
           handleOnChange={handleOnChangeToggle}
         />
+        <button
+          className="text-sm border border-1 border-app-text p-[2px_7px] rounded-full hover:scale-95 disabled:opacity-25 disabled:hover:scale-100 transition"
+          onClick={() => dispatch(saveChanges())}
+          disabled={isSaved}
+        >
+          { isSaved ? "✅ SAVED" : "💾 SAVE" }
+          { isSaveLoading && <span>
+            ...
+          </span> }
+        </button>
       </section>
       <EditableInput
         className="w-fit text-right"

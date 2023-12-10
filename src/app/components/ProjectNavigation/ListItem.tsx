@@ -32,10 +32,10 @@ const ListItem: FC<ListItemProps> = ({
     <div className="flex gap-2">
       <button
         onClick={onSelectProject}
-        className="relative w-full h-10 bg-app-gray flex justify-between items-center shadow-md rounded-xl px-3 cursor-pointer outline-transparent hover:outline hover:outline-2 hover:outline-slate-100 hover:scale-95 select-none z-10 group transition"
+        className="relative w-full h-10 bg-app-gray flex justify-between items-center shadow-md rounded-xl px-3 cursor-pointer outline-transparent hover:outline hover:outline-2 hover:outline-app-lighter-outline hover:scale-95 select-none z-10 group transition"
       >
         <p className="italic text-sm">{name}</p>
-        { searchParamsId === id && <div className="absolute left-0 w-full h-full rounded-xl outline outline-2 outline-slate-500 outline-offset-0 group-hover:outline-transparent"></div>}
+        { searchParamsId === id && <div className="absolute left-0 w-full h-full rounded-xl outline outline-2 outline-app-outline outline-offset-0 group-hover:outline-transparent"></div>}
       </button>
       <ListItemOptions />
     </div>

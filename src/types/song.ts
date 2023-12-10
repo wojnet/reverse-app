@@ -1,3 +1,5 @@
+import { BlockType } from "./blocks"
+
 type ChordType = {
   name: string,
   position: number
@@ -24,7 +26,7 @@ export type SongType = {
   name: string,
   userId: string,
   contents: {
-    type: "TITLE_BLOCK" | "TEXT_BLOCK" | "COMMENT_BLOCK",
+    type: BlockType,
     data: any
     // data: TitleBlockDataType | TextBlockDataType | CommentBlockDataType
   }[]

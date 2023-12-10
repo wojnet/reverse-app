@@ -43,12 +43,12 @@ export const projectsSlice = createSlice({
   name: "projects",
   initialState,
   reducers: {
-    changeProjectName: (state, action: { payload: { id: string, name: string } }) => {
-      state.projectsData = state.projectsData.map((project) => {
-        return project._id !== action.payload.id ? 
-          project : { ...project, name: action.payload.name }
-      });
-    }
+    // changeProjectName: (state, action: { payload: { id: string, name: string } }) => {
+    //   state.projectsData = state.projectsData.map((project) => {
+    //     return project._id !== action.payload.id ? 
+    //       project : { ...project, name: action.payload.name }
+    //   });
+    // }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProjectsData.pending, (state) => {
