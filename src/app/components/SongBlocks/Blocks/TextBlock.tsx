@@ -52,7 +52,7 @@ const TextBlock: FC<TextBlockProps> = ({
       return (
         <div
           key={index}
-          style={{ width: `${(width * letterWidth)}px` }}
+          style={{ width: `${(width * letterWidth)}px`, opacity: devMode ? "1" : "0" }}
           className="h-3 bg-green-500 rounded-sm"
         ></div>
       );
@@ -68,11 +68,11 @@ const TextBlock: FC<TextBlockProps> = ({
           <BlockOption icon="duplicate" />
           <BlockOption icon="menu" />
         </BlockOptionList>
-        { devMode && <div
+        <div
           className="w-auto h-auto flex flex-col gap-7 absolute left-[30px] top-5"
         >
           { hitboxElements }
-        </div> }
+        </div>
         <textarea
           className="invisible-textarea font-mono w-full h-48 leading-10 resize-none"
           placeholder="write your song's lyrics here..."
