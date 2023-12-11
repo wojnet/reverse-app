@@ -11,10 +11,6 @@ interface CommentBlockProps extends CommentBlockDataType {
   dispatch: Dispatch,
 };
 
-const handleOnTextChange = (event: ChangeEvent<HTMLInputElement>) => {
-
-}
-
 const CommentBlock: FC<CommentBlockProps> = ({
   index,
   text,

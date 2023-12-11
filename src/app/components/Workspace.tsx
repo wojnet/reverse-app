@@ -9,6 +9,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@/hooks/redux';
+import { useHotkeys } from "react-hotkeys-hook";
 import {
   TitleBlock,
   TextBlock,
@@ -17,7 +18,7 @@ import {
 import CreateOptionBar from './CreateOptionBar/CreateOptionBar';
 import ProjectNavigation from './ProjectNavigation/ProjectNavigation';
 import type { SongType } from '../../types/song';
-import { fetchSongData, selectIsLoading } from '../features/song/songSlice';
+import { fetchSongData, saveChanges, selectIsLoading, selectIsSaved } from '../features/song/songSlice';
 import { selectEditMode } from '../features/options/optionsSlice';
 import AddBlock from './SongBlocks/AddBlock';
 import { selectSongData } from '../features/song/songSlice';
@@ -39,6 +40,7 @@ const Workspace: FC<WorkspaceProps> = ({
   const searchParams = useSearchParams();
 
   const editMode: boolean = useAppSelector(selectEditMode);
+  const isSaved = useAppSelector(selectIsSaved);
 
   const idParam = searchParams.get("id") || "";
 
@@ -83,6 +85,13 @@ const Workspace: FC<WorkspaceProps> = ({
         />;
       default:
         return null;
+    }
+  });
+
+  useHotkeys("ctrl+s", (event) => {
+    event.preventDefault();
+    if (!isSaved) {
+      dispatch(saveChanges());
     }
   });
 

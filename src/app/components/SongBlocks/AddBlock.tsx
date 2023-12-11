@@ -1,7 +1,8 @@
-import { addBlock } from '@/app/features/song/songSlice';
+import { FC, useEffect, useRef, useState } from 'react';
+import { useClickAway } from "@uidotdev/usehooks";
 import { BlockType } from '@/types/blocks';
 import { Dispatch } from '@reduxjs/toolkit';
-import { FC, useEffect, useRef, useState } from 'react';
+import { addBlock } from '@/app/features/song/songSlice';
 
 interface AddBlockProps {
   dispatch: Dispatch;
@@ -9,7 +10,8 @@ interface AddBlockProps {
 
 const AddBlock: FC<AddBlockProps> = ({ dispatch }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const listRef = useRef<HTMLUListElement>(null);
+  const listRef = useClickAway<HTMLUListElement>(() => setIsOpen(false));
+  
 
   const handleAddingBlock = (type: BlockType) => {
     dispatch(addBlock({ type }));
@@ -18,12 +20,6 @@ const AddBlock: FC<AddBlockProps> = ({ dispatch }) => {
   const handleOnClick = () => {
     setIsOpen(prev => !prev);
   }
-
-  // useEffect(() => {
-  //   if (listRef !== null) {
-  //     listRef
-  //   }
-  // }, [isOpen]);
 
   return (
     <div

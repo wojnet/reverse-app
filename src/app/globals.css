@@ -18,4 +18,14 @@ body {
     border: 1px solid white;
     border-radius: 20px;
   }
+
+  .invisible-textarea {
+    background: none;
+    padding-inline: 10px;
+    overflow: hidden;
+  }
+
+  .invisible-textarea:focus {
+    outline: none;
+  }
 }

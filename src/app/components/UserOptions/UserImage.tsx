@@ -1,12 +1,29 @@
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import Image from 'next/image';
 import { Session } from 'next-auth';
+import { useAppDispatch } from '@/hooks/redux';
+import { toggleDevMode } from '@/app/features/options/optionsSlice';
 
 interface UserImageProps {
   session: Session | null;
 }
 
 const UserImage: FC<UserImageProps> = ({ session }) => {
+  const dispatch = useAppDispatch();
+  let firstClick: boolean = false;
+
+  const handleOnClick = (event: MouseEvent<HTMLImageElement>) => {
+    event.preventDefault();
+
+    if (firstClick) {
+      firstClick = false;
+      dispatch(toggleDevMode());
+    } else {
+      firstClick = true;
+      setTimeout(() => { firstClick = false }, 250);
+    }
+  }
+  
   if (session?.user?.image) {
     return <Image
       className="rounded-full [box-shadow:_2px_2px_7px_#0003]"
@@ -14,6 +31,7 @@ const UserImage: FC<UserImageProps> = ({ session }) => {
       alt="User image"
       width={36}
       height={36}
+      onClick={handleOnClick}
     />  
   }
 

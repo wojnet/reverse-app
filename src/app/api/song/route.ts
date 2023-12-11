@@ -19,11 +19,11 @@ export const GET = async (req: NextRequest) => {
       userId: token?.sub
     });
 
-    console.log(`${cc("[CONSOLE][SUCCESS]", "success")} /api/song:`, song, "token:", token);
+    // console.log(`${cc("[CONSOLE][SUCCESS]", "success")} /api/song:`, song);
     return Response.json(song);
   } catch (error) {
 
-    console.log(`${cc("[CONSOLE][ERROR]", "error")} /api/song:`, error);
+    // console.log(`${cc("[CONSOLE][ERROR]", "error")} /api/song:`, error);
     return Response.error();
   }
 };

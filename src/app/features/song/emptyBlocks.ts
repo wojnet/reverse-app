@@ -3,7 +3,7 @@ import { BlockType } from "@/types/blocks"
 export const emptyCommentBlock: { type: BlockType, data: any } = {
   type: "COMMENT_BLOCK",
   data: {
-    text: "Comment",
+    text: "",
   }
 };
 
@@ -12,7 +12,7 @@ export const emptyTextBlock: { type: BlockType, data: any } = {
   data: {
     paragraphs: [
       {
-        text: "Text",
+        text: "",
         chords: [],
       }
     ]
@@ -22,8 +22,8 @@ export const emptyTextBlock: { type: BlockType, data: any } = {
 export const emptyTitleBlock: { type: BlockType, data: any } = {
   type: "TITLE_BLOCK",
   data: {
-    title: "Title",
-    subtitle: "Subtitle",
+    title: "",
+    subtitle: "",
   }
 };
 

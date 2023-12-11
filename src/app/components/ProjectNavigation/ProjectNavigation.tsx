@@ -8,7 +8,6 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 import Resizer from './Resizer';
 import List from './List';
 import UserOptions from '../UserOptions/UserOptions';
-import { ProjectType } from '@/types/project';
 
 type ProjectNavigationProps = {
   setUrlParam: (key: string, value: string) => void,
@@ -19,7 +18,7 @@ type ProjectNavigationProps = {
 const ProjectNavigation: FC<ProjectNavigationProps> = ({
   setUrlParam,
   minWidth = 150,
-  maxWidth = 400
+  maxWidth = 500
 }) => {
   const navigationRef = useRef<HTMLDivElement>(null);
   const storage = useLocalStorage();
@@ -45,7 +44,7 @@ const ProjectNavigation: FC<ProjectNavigationProps> = ({
       ref={navigationRef}
     >
       <div className="w-full h-full max-h-screen flex-1 flex flex-col justify-between gap-5 p-4">
-        <h1 className="text-xl select-none">PROJECTS</h1>
+        <h1 className="text-2xl select-none">PROJECTS</h1>
         <List
           setUrlParam={setUrlParam}
         />

@@ -6,6 +6,7 @@ import {
 } from '@/hooks/redux';
 import {
   changeEditMode,
+  selectDevMode,
   selectEditMode,
 } from '../../features/options/optionsSlice';
 import ToggleSwitch from '../ToggleSwitch';
@@ -26,6 +27,7 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({ setUrlParam, initialProject
 
   const dispatch = useAppDispatch();
   const editMode = useAppSelector(selectEditMode);
+  const devMode = useAppSelector(selectDevMode);
   const isSaved = useAppSelector(selectIsSaved);
   const isSaveLoading = useAppSelector(selectIsSaveLoading);
 
@@ -74,6 +76,13 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({ setUrlParam, initialProject
           </span> }
         </button>
       </section>
+
+      { devMode && <code
+        className="text-xs animate-pulse"
+      >
+        {"<> DEV MODE </>"}
+      </code> }
+
       <EditableInput
         className="w-fit text-right"
         type="text"
