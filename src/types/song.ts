@@ -1,8 +1,10 @@
 import { BlockType } from "./blocks"
+import { RootNoteType, ShapeType } from "./chords"
 
-type ChordType = {
-  name: string,
-  position: number
+export type ChordsType = {
+  rootNote: RootNoteType,
+  shape: ShapeType,
+  position: number,
 }
 
 export type TitleBlockDataType = {
@@ -13,7 +15,7 @@ export type TitleBlockDataType = {
 export type TextBlockDataType = {
   paragraphs?: {
     text: string,
-    chords?: ChordType[]
+    chords?: ChordsType[]
   }[]
 }
 

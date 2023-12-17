@@ -1,7 +1,7 @@
 import { CommentBlockDataType } from '@/types/song';
 import { ChangeEvent, FC, useState } from 'react';
-import BlockOptionList from '../Functionality/BlockOptionList';
-import BlockOption from '../Functionality/BlockOption';
+import BlockOptionList from '../../Functionality/BlockOptionList';
+import BlockOption from '../../Functionality/BlockOption';
 import { Dispatch } from '@reduxjs/toolkit';
 import { changeBlock, removeBlock } from '@/app/features/song/songSlice';
 

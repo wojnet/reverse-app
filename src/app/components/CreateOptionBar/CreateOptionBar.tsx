@@ -54,7 +54,7 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({ setUrlParam, initialProject
 
   return (
     <div
-        className="w-full h-12 bg-app-light-gray flex justify-between items-center gap-2 px-4 shadow-lg"
+        className="w-full h-12 flex-shrink-0 bg-app-light-gray flex justify-between items-center gap-2 px-4 shadow-lg sticky top-0 z-30"
     >
       <section className="flex items-center gap-2">
         <p className="text-sm">

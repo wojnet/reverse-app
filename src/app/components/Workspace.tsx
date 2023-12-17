@@ -106,7 +106,7 @@ const Workspace: FC<WorkspaceProps> = ({
         setUrlParam={setUrlParam}
       />
 
-      { songData && <div className="w-full h-full1 flex-1 flex flex-col">
+      { songData && <div className="w-full h-full1 flex-1 flex flex-col overflow-y-auto">
           <CreateOptionBar 
             initialProjectName={songData.name}
             setUrlParam={setUrlParam}

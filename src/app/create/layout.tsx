@@ -1,4 +1,11 @@
 import Providers from "@/redux/provider";
+import { Fira_Code } from "next/font/google";
+
+const firaCode = Fira_Code({
+  weight: ["700"],
+  subsets: ["latin"],
+  variable: "--fira-code",
+});
 
 const layout = ({
   children
@@ -7,7 +14,7 @@ const layout = ({
 }) => {
   return (
     <Providers>
-      <div className="w-full h-screen bg-app-gray text-app-text flex justify-between">
+      <div className={`${firaCode.variable} w-full h-screen bg-app-gray text-app-text flex justify-between`}>
         {children}
       </div>
     </Providers>

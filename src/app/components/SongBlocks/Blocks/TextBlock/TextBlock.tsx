@@ -1,11 +1,12 @@
 import { ChangeEvent, FC, useRef } from 'react';
 import { TextBlockDataType } from '@/types/song';
-import BlockOptionList from '../Functionality/BlockOptionList';
-import BlockOption from '../Functionality/BlockOption';
+import BlockOptionList from '../../Functionality/BlockOptionList';
+import BlockOption from '../../Functionality/BlockOption';
 import { Dispatch } from '@reduxjs/toolkit';
 import { changeBlock, removeBlock } from '@/app/features/song/songSlice';
 import { useAppSelector } from '@/hooks/redux';
 import { selectDevMode } from '@/app/features/options/optionsSlice';
+import ChordLine from './ChordLine';
 
 interface TextBlockProps extends TextBlockDataType {
   index: number,
@@ -20,6 +21,8 @@ const TextBlock: FC<TextBlockProps> = ({
   dispatch,
 }) => {
   const devMode = useAppSelector(selectDevMode);
+  const letterWidth = 9;
+  const lineHeight = 48;
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   let textareaValue: string = "";
@@ -44,17 +47,20 @@ const TextBlock: FC<TextBlockProps> = ({
   }
 
   if (editMode) {
-    const letterWidth = 9;
-
-    const hitboxElements = paragraphs.map((paragraph, index) => {
+    const hitboxElements = paragraphs.map((paragraph, mapIndex) => {
       const width = paragraph.text.length;
 
       return (
-        <div
-          key={index}
-          style={{ width: `${(width * letterWidth)}px`, opacity: devMode ? "1" : "0" }}
-          className="h-3 bg-green-500 rounded-sm"
-        ></div>
+        <ChordLine
+          key={mapIndex}
+          index={mapIndex}
+          paragraph={paragraph}
+          blockIndex={index}
+          width={width}
+          lineHeight={lineHeight}
+          devMode={devMode}
+          letterWidth={letterWidth}
+        />
       );
     });
 
@@ -68,16 +74,17 @@ const TextBlock: FC<TextBlockProps> = ({
           <BlockOption icon="duplicate" />
           <BlockOption icon="menu" />
         </BlockOptionList>
-        <div
+        {/* <div
           className="w-auto h-auto flex flex-col gap-7 absolute left-[30px] top-5"
-        >
+        > */}
           { hitboxElements }
-        </div>
+        {/* </div> */}
         <textarea
-          className="invisible-textarea font-mono w-full h-48 leading-10 resize-none"
+          className="invisible-textarea font-mono w-full h-48 leading-[48px] resize-none"
           placeholder="write your song's lyrics here..."
           value={textareaValue}
           onChange={handleOnChange}
+          spellCheck={false}
         />
       </div>
     );
