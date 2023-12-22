@@ -1,40 +1,42 @@
-export const sampleSong = {
-  "_id": "656506d6ef5772112c14d417",
-  "name": "untitled 1",
-  "contents": [
+const sampleSong = {
+  name: "Dziwak",
+  contents: [
     {
-      "type": "TITLE_BLOCK",
-      "data": {
-        "title": "Skeleton Key",
-        "subtitle": "Origami Angel"
+      type: "TITLE_BLOCK",
+      data: {
+        title: "Dziwak",
+        subtitle: "Radiogłowi"
       }
     },
     {
-      "type": "TEXT_BLOCK",
-      "data": {
-        "paragraphs": [
+      type: "TEXT_BLOCK",
+      data: {
+        paragraphs: [
           {
-            "text": "Overwhelming thought...",
-            "chords": [
-              { "name": "A#", "position": 0 },
-              { "name": "A#Maj7", "position": 24 }
+            text: "Bo ja jestem krepem",
+            chords: [
+              {
+                position: 1,
+                rootNote: "G",
+                shape: "major"
+              }
             ]
           },
           {
-            "text": "For two weeks straight...",
-            "chords": [
-              { "name": "Cm", "position": 14 },
-              { "name": "D#Maj7", "position": 48 }
+            text: "Jestem dziwakiem",
+            chords: [
+              {
+                "rootNote": "B",
+                "shape": "major",
+                "position": 8
+              }
             ]
-          }
+          },
         ]
       }
-    },
-    {
-      "type": "COMMENT_BLOCK",
-      "data": {
-        "text": "This song was “leaked” to the public by..."
-      }
     }
-  ]
+  ],
+  "userId": "90496087"
 }
+
+export default sampleSong;

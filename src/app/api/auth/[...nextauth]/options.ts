@@ -3,6 +3,7 @@ import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import SpotifyProvider from "next-auth/providers/spotify";
 import clientPromise from "@lib/mongo/clientPromise";
+import sampleSong from "@/data/sample/sampleSong";
 
 export const options: NextAuthOptions = {
   providers: [
@@ -48,61 +49,8 @@ export const options: NextAuthOptions = {
 
           await collection.insertOne(newUserData);
 
-          let sampleProjectData = {
-            name: "Ignorance",
-            userId: user.id,
-            contents: [
-              {
-                type: "TITLE_BLOCK",
-                data: {
-                  title: "Ignorance",
-                  subtitle: "Paramore"
-                }
-              },
-              {
-                type: "TEXT_BLOCK",
-                data: {
-                  paragraphs: [
-                    {
-                      text: "If I'm a bad person, you don't like me",
-                      chords: [
-                        {
-                          name: "A#",
-                          position: 0
-                        },
-                        {
-                          name: "A#Maj7",
-                          position: 24
-                        }
-                      ]
-                    },
-                    {
-                      text: "Well, I guess I'll make my own way",
-                      chords: [
-                        {
-                          name: "Cm",
-                          position: 14
-                        },
-                        {
-                          name: "D#Maj7",
-                          position: 48
-                        }
-                      ]
-                    }
-                  ]
-                }
-              },
-              {
-                type: "COMMENT_BLOCK",
-                data: {
-                  text: "description"
-                }
-              }
-            ],
-          }
-
           collection = db.collection("projects"); 
-          await collection.insertOne(sampleProjectData);
+          await collection.insertOne(sampleSong);
         }
       }
 
