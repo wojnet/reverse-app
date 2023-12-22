@@ -31,6 +31,8 @@ export const options: NextAuthOptions = {
           userId: user.id,
         });
 
+        console.log("user", user);
+
         // const provider = await collection.findOne({
         //   userId: user.id,
         // }, {
@@ -50,7 +52,7 @@ export const options: NextAuthOptions = {
           await collection.insertOne(newUserData);
 
           collection = db.collection("projects"); 
-          await collection.insertOne(sampleSong);
+          await collection.insertOne({...sampleSong, userId: user.id});
         }
       }
 

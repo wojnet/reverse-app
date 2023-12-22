@@ -35,8 +35,7 @@ const sampleSong = {
         ]
       }
     }
-  ],
-  "userId": "90496087"
+  ]
 }
 
 export default sampleSong;
