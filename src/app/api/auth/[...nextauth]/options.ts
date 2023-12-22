@@ -1,18 +1,23 @@
 import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import SpotifyProvider from "next-auth/providers/spotify";
 import clientPromise from "@lib/mongo/clientPromise";
 
 export const options: NextAuthOptions = {
   providers: [
+    SpotifyProvider({
+      clientId: (process.env.SPOTIFY_ID as string) || "",
+      clientSecret: (process.env.SPOTIFY_SECRET as string) || "",
+    }),
     GitHubProvider({
       clientId: (process.env.GITHUB_ID as string) || "",
       clientSecret: (process.env.GITHUB_SECRET as string) || "",
     }),
-    GoogleProvider({
-      clientId: (process.env.GOOGLE_ID as string) || "",
-      clientSecret: (process.env.GOOGLE_SECRET as string) || "",
-    }),
+    // GoogleProvider({
+    //   clientId: (process.env.GOOGLE_ID as string) || "",
+    //   clientSecret: (process.env.GOOGLE_SECRET as string) || "",
+    // }),
   ],
   callbacks: {
     async jwt({ token, user, account, profile, trigger }) {
@@ -25,11 +30,20 @@ export const options: NextAuthOptions = {
           userId: user.id,
         });
 
+        // const provider = await collection.findOne({
+        //   userId: user.id,
+        // }, {
+        //   projection: {
+        //     provider: true,
+        //   }
+        // });
+
         if (count === 0) {
           let newUserData = {
             userId: user.id,
             name: user.name,
             role: "user",
+            provider: account?.provider,
           };
 
           await collection.insertOne(newUserData);
