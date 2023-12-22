@@ -1,12 +1,12 @@
 "use client";
 import { FC, useState } from 'react';
 
-type ListItemOptionsProps = {};
+interface ListItemOptionsProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {};
 
-const ListItemOptions: FC<ListItemOptionsProps> = ({}) => {
+const ListItemOptions: FC<ListItemOptionsProps> = ({ ...props }) => {
   return (
     <>
-      <button className="flex-1">
+      <button {...props} className="flex-1">
         ☰
       </button>
     </>

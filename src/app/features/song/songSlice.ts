@@ -108,12 +108,34 @@ export const songSlice = createSlice({
         }
       }
     },
-    // saveChanges: (state) => {
-    //   return {
-    //     ...state,
-    //     isSaved: true,
-    //   }
-    // }
+    changeChord: (state, action) => {
+      const { index, paragraphIndex, blockIndex, changedChord } = action.payload;
+      state.songData.contents[blockIndex].data.paragraphs[paragraphIndex].chords[index] = { 
+        ...state.songData.contents[blockIndex].data.paragraphs[paragraphIndex].chords[index],
+        ...changedChord,
+      };
+      state.isSaved = false;
+    },
+    moveChord: (state, action) => {
+      const { index, paragraphIndex, blockIndex, number } = action.payload;
+      const newPosition = state.songData.contents[blockIndex].data.paragraphs[paragraphIndex].chords[index].position + number;
+
+      if (newPosition < 0) return state;
+
+      state.songData.contents[blockIndex].data.paragraphs[paragraphIndex].chords[index] = { 
+        ...state.songData.contents[blockIndex].data.paragraphs[paragraphIndex].chords[index],
+        position: newPosition,
+      };
+      state.isSaved = false;
+    },
+    removeChord: (state, action) => {
+      const { index, paragraphIndex, blockIndex } = action.payload;
+      state.songData.contents[blockIndex].data.paragraphs[paragraphIndex].chords = [
+        ...state.songData.contents[blockIndex].data.paragraphs[paragraphIndex].chords.slice(0, index),
+        ...state.songData.contents[blockIndex].data.paragraphs[paragraphIndex].chords.slice(index + 1),
+      ]
+      state.isSaved = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSongData.pending, (state) => {
@@ -149,6 +171,9 @@ export const {
   changeBlock,
   removeBlock,
   addBlock,
+  changeChord,
+  moveChord,
+  removeChord,
 } = songSlice.actions;
 
 export const selectSongData = (state: RootState) => state.song.songData;

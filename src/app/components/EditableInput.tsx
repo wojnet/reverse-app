@@ -45,7 +45,7 @@ const EditableInput: FC<EditableInputProps> = ({
 
   if (!isEditing) return (
     <p
-      className="cursor-pointer text-sm hover:outline-dashed hover:outline hover:outline-1 rounded-xl p-[2px_8px] transition"
+      className="cursor-pointer text-sm hover:outline-dashed hover:outline-1 rounded-xl p-[2px_8px] transition"
       onClick={handleOnParagraphClick}
     >
       {value}
@@ -60,7 +60,6 @@ const EditableInput: FC<EditableInputProps> = ({
         onChange={onChange}
         onKeyDown={handleOnKeyDown}
         ref={inputRef}
-        placeholder="name cannot be empty"
         {...props}
       />
       <button

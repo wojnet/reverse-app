@@ -9,14 +9,18 @@ import { getProjects } from "@/utils/projects/getProjects";
   
 export type ProjectsState = {
   projectsData: ProjectType[],
-  isLoading: boolean,
-  error: string | null | undefined,
+  isFetching: boolean,
+  fetchError: string | null | undefined,
+  isInsertingNewProject: boolean,
+  insertError: string | null | undefined,
 }
 
 const initialState: ProjectsState = {
   projectsData: [],
-  isLoading: false,
-  error: null,
+  isFetching: false,
+  fetchError: null,
+  isInsertingNewProject: false,
+  insertError: null,
 }
 
 export const fetchProjectsData = createAsyncThunk(
@@ -30,44 +34,54 @@ export const fetchProjectsData = createAsyncThunk(
 export const changeProjectName = createAsyncThunk(
   "projects/changeProjectName",
   async ({ id, name }: { id: string, name: string }) => {
-    const mongoResponse = await fetch(`/api/projects/changeName`, {
+    return await fetch(`/api/projects/changeName`, {
       method: "PUT",
       cache: "no-store",
       body: JSON.stringify({ id, name }),
     }).then(res => res.json());
-    return mongoResponse;
+  }
+);
+
+export const addNewProject = createAsyncThunk(
+  "projects/addNewProject",
+  async ({ name }: { name: string | undefined }) => {
+    return await fetch(`/api/projects/addNew`, {
+      method: "PUT",
+      cache: "no-store",
+      body: JSON.stringify({ name }),
+    }).then(res => res.json());
+  }
+);
+
+export const deleteProject = createAsyncThunk(
+  "projects/deleteProject",
+  async ({ id }: { id: string }) => {
+    return await fetch(`/api/projects/delete`, {
+      method: "DELETE",
+      cache: "no-store",
+      body: JSON.stringify({ id }),
+    }).then(res => res.json());
   }
 );
 
 export const projectsSlice = createSlice({
   name: "projects",
   initialState,
-  reducers: {
-    // changeProjectName: (state, action: { payload: { id: string, name: string } }) => {
-    //   state.projectsData = state.projectsData.map((project) => {
-    //     return project._id !== action.payload.id ? 
-    //       project : { ...project, name: action.payload.name }
-    //   });
-    // }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchProjectsData.pending, (state) => {
-      state.isLoading = true;
+      state.isFetching = true;
     });
     builder.addCase(fetchProjectsData.fulfilled, (state, action) => {
-      state.isLoading = false;
+      state.isFetching = false;
       state.projectsData = action.payload;
     });
     builder.addCase(fetchProjectsData.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
+      state.isFetching = false;
+      state.fetchError = action.error.message;
     });
 
-    builder.addCase(changeProjectName.pending, (state) => {
-      
-    });
     builder.addCase(changeProjectName.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.projectsData = state.projectsData.map(project => {
         let tempProject = project;
         if (tempProject._id === action.payload.id) {
@@ -76,14 +90,36 @@ export const projectsSlice = createSlice({
         return tempProject;
       });
     });
-    builder.addCase(changeProjectName.rejected, (state, action) => {
-      
+
+    builder.addCase(addNewProject.pending, (state) => {
+      state.isInsertingNewProject = true;
+    });
+    builder.addCase(addNewProject.fulfilled, (state, action) => {
+      state.isInsertingNewProject = false;
+
+      const id = action.payload.response.insertedId;
+      const name = action.payload.name;
+
+      state.projectsData = [...state.projectsData, {
+        _id: id,
+        name,
+      }];
+    });
+    builder.addCase(addNewProject.rejected, (state) => {
+      state.isInsertingNewProject = false;
+      state.insertError = "Failed inserting project";
+    });
+
+    builder.addCase(deleteProject.fulfilled, (state, action) => {
+      state.projectsData = state.projectsData.filter(project => project._id !== action.payload.id);
     });
   }
 });
 
 export const selectProjectsData = (state: RootState) => state.projects.projectsData;
-export const selectIsLoading = (state: RootState) => state.projects.isLoading;
-export const selectError = (state: RootState) => state.projects.error;
+export const selectIsFetching = (state: RootState) => state.projects.isFetching;
+export const selectFetchError = (state: RootState) => state.projects.fetchError;
+export const selectIsInsertingNewProject = (state: RootState) => state.projects.isInsertingNewProject;
+export const selectInsertError = (state: RootState) => state.projects.insertError;
 
 export default projectsSlice.reducer;

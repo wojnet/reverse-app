@@ -29,7 +29,7 @@ const AddBlock: FC<AddBlockProps> = ({ dispatch }) => {
         className="absolute top-0 right-0 bottom-0 left-0"
         onClick={handleOnClick}
       ></div>
-      <p onClick={handleOnClick}>+</p>
+      <p>+</p>
       <ul
         ref={listRef}
         className="absolute text-white text-sm text-center scale-0 transition top-[50px] origin-top"

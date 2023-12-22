@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useRef } from 'react';
+import { ChangeEvent, FC } from 'react';
 import { TextBlockDataType } from '@/types/song';
 import BlockOptionList from '../../Functionality/BlockOptionList';
 import BlockOption from '../../Functionality/BlockOption';
@@ -6,7 +6,8 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { changeBlock, removeBlock } from '@/app/features/song/songSlice';
 import { useAppSelector } from '@/hooks/redux';
 import { selectDevMode } from '@/app/features/options/optionsSlice';
-import ChordLine from './ChordLine';
+import EditableChordLine from './Chords/EditableChordLine';
+import ChordLine from './Chords/ChordLine';
 
 interface TextBlockProps extends TextBlockDataType {
   index: number,
@@ -24,7 +25,6 @@ const TextBlock: FC<TextBlockProps> = ({
   const letterWidth = 9;
   const lineHeight = 48;
 
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   let textareaValue: string = "";
 
   paragraphs?.forEach((paragraph, index) => {
@@ -47,11 +47,11 @@ const TextBlock: FC<TextBlockProps> = ({
   }
 
   if (editMode) {
-    const hitboxElements = paragraphs.map((paragraph, mapIndex) => {
+    const editableChordLines = paragraphs.map((paragraph, mapIndex) => {
       const width = paragraph.text.length;
-
+  
       return (
-        <ChordLine
+        <EditableChordLine
           key={mapIndex}
           index={mapIndex}
           paragraph={paragraph}
@@ -65,20 +65,18 @@ const TextBlock: FC<TextBlockProps> = ({
     });
 
     return (
+      // EDITABLE TEXT_BLOCK
       <div className="w-full max-w-[700px] h-auto flex flex-col items-center gap-5 outline outline-1 outline-app-outline rounded-lg p-5 relative">
         <BlockOptionList>
           <BlockOption
             onClick={() => dispatch(removeBlock(index))}
+            confirm={true}
             icon="trash" 
           />
           <BlockOption icon="duplicate" />
           <BlockOption icon="menu" />
         </BlockOptionList>
-        {/* <div
-          className="w-auto h-auto flex flex-col gap-7 absolute left-[30px] top-5"
-        > */}
-          { hitboxElements }
-        {/* </div> */}
+        { editableChordLines }
         <textarea
           className="invisible-textarea font-mono w-full h-48 leading-[48px] resize-none"
           placeholder="write your song's lyrics here..."
@@ -91,12 +89,40 @@ const TextBlock: FC<TextBlockProps> = ({
   }
 
   const paragraphElements = paragraphs?.map((paragraph, index) => {
-    return <p key={index}>{paragraph.text}</p>;
+    return <p
+      className="font-mono leading-[48px]"
+      key={index}
+    >
+      {paragraph.text}
+    </p>;
   })
   
+  const chordLines = paragraphs.map((paragraph, mapIndex) => {
+    const width = paragraph.text.length;
+
+    return (
+      <ChordLine
+        key={mapIndex}
+        index={mapIndex}
+        paragraph={paragraph}
+        blockIndex={index}
+        width={width}
+        lineHeight={lineHeight}
+        devMode={devMode}
+        letterWidth={letterWidth}
+      />
+    );
+  });
+
   return (
-    <div className="w-full flex flex-col items-center gap-5 hover:outline hover:outline-2 hover:outline-app-outline rounded-lg p-5 relative">
-      { paragraphElements }
+    // TEXT_BLOCK
+    <div className="w-full max-w-[700px] h-auto flex flex-col items-start gap-5 rounded-lg p-5 relative">
+      <div
+        className="px-[10px]"
+      >
+        { paragraphElements }
+      </div>
+      { chordLines }
     </div>
   );
 }

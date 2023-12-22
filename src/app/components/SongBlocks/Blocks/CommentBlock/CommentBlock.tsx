@@ -28,6 +28,7 @@ const CommentBlock: FC<CommentBlockProps> = ({
       <BlockOptionList>
         <BlockOption
           onClick={() => dispatch(removeBlock(index))} 
+          confirm={true}
           icon="trash" 
         />
         <BlockOption icon="duplicate" />
