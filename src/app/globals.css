@@ -11,6 +11,15 @@ body {
 }
 
 @layer components {
+  .text-input {
+    background: none;
+    text-align: center;
+  }
+
+  .text-input:focus {
+    outline: none;
+  }
+
   .custom-input {
     height: 20px;
     background: none;

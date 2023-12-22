@@ -6,8 +6,10 @@ import {
 } from '@/hooks/redux';
 import {
   changeEditMode,
+  changeIsMobileNavbarVisible,
   selectDevMode,
   selectEditMode,
+  selectMobileMode,
 } from '../../features/options/optionsSlice';
 import ToggleSwitch from '../ToggleSwitch';
 import EditableInput from '../EditableInput';
@@ -20,7 +22,10 @@ type CreateOptionBarProps = {
   initialProjectName: string,
 };
 
-const CreateOptionBar: FC<CreateOptionBarProps> = ({ setUrlParam, initialProjectName }) => {
+const CreateOptionBar: FC<CreateOptionBarProps> = ({
+  setUrlParam,
+  initialProjectName,
+}) => {
   const searchParams = useSearchParams();
   const idParam = searchParams.get("id") || "";
   const [projectName, setProjectName] = useState<string>(initialProjectName);
@@ -30,6 +35,7 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({ setUrlParam, initialProject
   const devMode = useAppSelector(selectDevMode);
   const isSaved = useAppSelector(selectIsSaved);
   const isSaveLoading = useAppSelector(selectIsSaveLoading);
+  const mobileMode = useAppSelector(selectMobileMode);
 
   const handleOnChangeToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
@@ -57,32 +63,34 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({ setUrlParam, initialProject
         className="w-full h-12 flex-shrink-0 bg-app-light-gray flex justify-between items-center gap-2 px-4 shadow-lg sticky top-0 z-30"
     >
       <section className="flex items-center gap-2">
-        <p className="text-sm">
-          EDIT MODE:
+        { mobileMode && <button
+          className="mr-5 text-xl font-bold"
+          onClick={() => dispatch(changeIsMobileNavbarVisible(true))}
+        >
+          ☰
+        </button> }
+        <button
+          className="text-xs sm:text-sm border border-1 border-app-text p-[2px_7px] rounded-full hover:scale-95 disabled:opacity-25 disabled:hover:scale-100 transition"
+          onClick={() => dispatch(saveChanges())}
+          disabled={isSaved}
+        >
+          { isSaved ?
+            mobileMode ? "✅" : "✅ SAVED" :
+            mobileMode ? "💾" : "💾 SAVE"
+          }
+          { isSaveLoading && <span>
+            ...
+          </span> }
+        </button>
+        <p className="text-xs sm:text-sm">
+          EDIT:
         </p>
         <ToggleSwitch
           id="1"
           state={editMode}
           handleOnChange={handleOnChangeToggle}
         />
-        <button
-          className="text-sm border border-1 border-app-text p-[2px_7px] rounded-full hover:scale-95 disabled:opacity-25 disabled:hover:scale-100 transition"
-          onClick={() => dispatch(saveChanges())}
-          disabled={isSaved}
-        >
-          { isSaved ? "✅ SAVED" : "💾 SAVE" }
-          { isSaveLoading && <span>
-            ...
-          </span> }
-        </button>
       </section>
-
-      { devMode && <code
-        className="text-xs animate-pulse"
-      >
-        {"<> DEV MODE </>"}
-      </code> }
-
       <EditableInput
         className="w-fit text-right"
         type="text"
@@ -90,6 +98,7 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({ setUrlParam, initialProject
         onChange={handleOnChangeName}
         onAccept={acceprProjectName}
         spellCheck="false"
+        placeholder="project name"
       />
     </div>
   );
