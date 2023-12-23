@@ -25,6 +25,11 @@ const EditableChord: FC<EditableChordProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const chordRef = useClickAway<HTMLDivElement>(() => {
+    setIsModalOpen(false);
+  });
+
   if (chord.position >= paragraphLength) {
     dispatch(removeChord({
       index,
@@ -33,11 +38,6 @@ const EditableChord: FC<EditableChordProps> = ({
     }));
     return null;
   }
-
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const chordRef = useClickAway<HTMLDivElement>(() => {
-    setIsModalOpen(false);
-  });
 
   const handleOnClick = () => {
     setIsModalOpen(prev => !prev);
