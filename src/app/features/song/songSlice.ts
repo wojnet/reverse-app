@@ -5,10 +5,12 @@ import {
     PayloadAction,
 } from "@reduxjs/toolkit";
 import type { RootState } from "@/redux/store";
-import { SongType } from "@/types/song";
+import { ChordsType, SongType } from "@/types/song";
 import { getSong } from "@/utils/song/getSong";
 import { getEmptyBlock } from "./emptyBlocks";
 import { saveSong } from "@/utils/song/saveSong";
+import { BlockType } from "@/types/blocks";
+import { RootNoteType, ShapeType } from "@/types/chords";
   
 export type SongState = {
   songData: SongType,
@@ -55,6 +57,21 @@ export const songSlice = createSlice({
   name: "song",
   initialState,
   reducers: {
+    addBlock: (state, action) => {
+      if (state.songData === null) return;
+
+      const emptyBlock = getEmptyBlock(action.payload.type);
+      if (!emptyBlock) return;
+      
+      return {
+        ...state,
+        isSaved: false,
+        songData: {
+          ...state.songData,
+          contents: [...state.songData?.contents, emptyBlock]
+        }
+      }
+    },
     changeBlock: (state, action: PayloadAction<{ index: number, changedBlockData: any }>) => {
       if (state.songData === null) return state;
 
@@ -93,20 +110,48 @@ export const songSlice = createSlice({
         }
       }
     },
-    addBlock: (state, action) => {
-      if (state.songData === null) return;
-
-      const emptyBlock = getEmptyBlock(action.payload.type);
-      if (!emptyBlock) return;
-      
-      return {
-        ...state,
-        isSaved: false,
-        songData: {
-          ...state.songData,
-          contents: [...state.songData?.contents, emptyBlock]
-        }
+    addChord: (state, action: {
+      payload: {
+        paragraphIndex: number,
+        blockIndex: number,
+        rootNote: RootNoteType,
+        shape: ShapeType,
+        position: number,
       }
+    }) => {
+      const { paragraphIndex, blockIndex, rootNote, shape, position } = action.payload;
+
+      if (state.songData.contents[blockIndex].type !== "TEXT_BLOCK") return state;
+
+      state.songData.contents = [
+        ...state.songData.contents.map((block, index) => {
+          if (index !== blockIndex) return block;
+
+          let tempBlock = block as { type: BlockType, data: {
+            paragraphs: {
+              text: string,
+              chords: ChordsType[],
+            }[]
+          }}
+
+          console.log(tempBlock.data.paragraphs[paragraphIndex]);
+
+          if (tempBlock.data.paragraphs[paragraphIndex].chords) {
+            tempBlock.data.paragraphs[paragraphIndex].chords = [
+              ...tempBlock.data.paragraphs[paragraphIndex].chords,
+              { rootNote, shape, position },
+            ];
+          } else {
+            tempBlock.data.paragraphs[paragraphIndex].chords = [{ rootNote, shape, position }]
+          }
+
+          block.data.paragraphs[paragraphIndex].chords
+
+          return tempBlock;
+        }),
+      ];
+
+      state.isSaved = false;
     },
     changeChord: (state, action) => {
       const { index, paragraphIndex, blockIndex, changedChord } = action.payload;
@@ -168,9 +213,10 @@ export const songSlice = createSlice({
 });
 
 export const {
+  addBlock,
   changeBlock,
   removeBlock,
-  addBlock,
+  addChord,
   changeChord,
   moveChord,
   removeChord,

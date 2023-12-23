@@ -42,6 +42,7 @@ const Workspace: FC<WorkspaceProps> = ({
   const editMode: boolean = useAppSelector(selectEditMode);
   const mobileMode: boolean = useAppSelector(selectMobileMode);
   const isSaved = useAppSelector(selectIsSaved);
+  const isLoading = useAppSelector(selectIsLoading);
 
   const idParam = searchParams.get("id") || "";
 
@@ -133,15 +134,15 @@ const Workspace: FC<WorkspaceProps> = ({
       />
 
       { songData && <div
-        className="w-full h-full flex-1 flex flex-col overflow-y-auto"
+        className="w-full h-full flex-1 flex flex-col overflow-x-hidden overflow-y-auto"
       >
           <CreateOptionBar 
             initialProjectName={songData.name}
             setUrlParam={setUrlParam}
           />
           <div
-            className="w-full h-full flex-1 flex flex-col items-center gap-5 p-5 my-5"
-            style={{ gap: editMode ? "30px" : "0" }}
+            style={{ opacity: isLoading ? "0.5" : "1", gap: editMode ? "30px" : "0" }}
+            className="w-full h-full flex-1 flex flex-col items-center gap-5 p-5 my-5 transition"
           >
             { songContents }
             { editMode && <AddBlock dispatch={dispatch} /> }

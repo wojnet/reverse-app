@@ -10,7 +10,10 @@ interface AddBlockProps {
 
 const AddBlock: FC<AddBlockProps> = ({ dispatch }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const listRef = useClickAway<HTMLUListElement>(() => setIsOpen(false));
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const listRef = useClickAway<HTMLUListElement>((event) => {
+    if (event.target !== buttonRef.current) setIsOpen(false);
+  });
   
 
   const handleAddingBlock = (type: BlockType) => {
@@ -25,10 +28,11 @@ const AddBlock: FC<AddBlockProps> = ({ dispatch }) => {
     <div
       className="w-8 h-8 bg-app-gray flex justify-center items-center text-app-outline hover:bg-app-lighter-outline hover:text-app-gray text-3xl font-bold outline outline-2 outline-app-outline hover:outline-app-lighter-outline select-none z-10 rounded-md cursor-pointer relative transition"
     >
-      <div
+      <button
         className="absolute top-0 right-0 bottom-0 left-0"
         onClick={handleOnClick}
-      ></div>
+        ref={buttonRef}
+      ></button>
       <p>+</p>
       <ul
         ref={listRef}

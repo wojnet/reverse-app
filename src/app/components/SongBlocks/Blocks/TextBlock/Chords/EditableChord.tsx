@@ -12,6 +12,7 @@ interface EditableChordProps {
   blockIndex: number,
   letterWidth: number,
   chord: ChordsType,
+  paragraphLength: number,
 }
 
 const EditableChord: FC<EditableChordProps> = ({
@@ -20,8 +21,18 @@ const EditableChord: FC<EditableChordProps> = ({
   blockIndex,
   letterWidth,
   chord,
+  paragraphLength,
 }) => {
   const dispatch = useAppDispatch();
+
+  if (chord.position >= paragraphLength) {
+    dispatch(removeChord({
+      index,
+      paragraphIndex,
+      blockIndex,
+    }));
+    return null;
+  }
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const chordRef = useClickAway<HTMLDivElement>(() => {
@@ -62,8 +73,14 @@ const EditableChord: FC<EditableChordProps> = ({
     >
       { isModalOpen && <div
         style={{ left: `${(chord.position * letterWidth) - 20}px` }}
-        className="absolute bg-app-gray flex flex-col gap-1 outline outline-1 outline-app-outline rounded-xl shadow-[0_0_20px_2px] shadow-app-gray bottom-5 z-40 p-2"
+        className="absolute bg-app-gray flex flex-col items-start gap-1 outline outline-1 outline-app-outline rounded-xl shadow-[0_0_20px_2px] shadow-app-gray bottom-5 z-50 p-2"
       >
+        <button
+          className="w-auto h-auto text-app-gray text-xs font-bold flex justify-center items-center rounded-md bg-app-text p-[2px_5px] hover:opacity-75 transition cursor-pointer"
+          onClick={() => setIsModalOpen(false)}
+        >
+          exit
+        </button>
         <h3 className="text-xs">
           CHORD&nbsp;OPTIONS
         </h3>
@@ -94,7 +111,7 @@ const EditableChord: FC<EditableChordProps> = ({
       <div
         key={index}
         style={{ left: `${(chord.position * letterWidth) - .5*letterWidth}px`, opacity: isModalOpen ? "0.75" : "" }}
-        className="w-0 h-full flex justify-start items-center rounded-md absolute hover:opacity-75 transition"
+        className="w-0 h-full flex justify-start items-center rounded-md absolute hover:opacity-75 transition cursor-pointer"
         onClick={handleOnClick}
       >
         <p

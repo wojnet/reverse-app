@@ -2,6 +2,11 @@ import { FC, MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { ChordsType } from '@/types/song';
 import EditableChord from './EditableChord';
 import ChordAddSign from './ChordAddSign';
+import { Dispatch } from '@reduxjs/toolkit';
+import { addChord } from '@/app/features/song/songSlice';
+import AddChordMenu from './AddChordMenu';
+import { useClickAway } from '@uidotdev/usehooks';
+import { RootNoteType, ShapeType } from '@/types/chords';
 
 interface EditableChordLineProps {
   index: number,
@@ -11,6 +16,7 @@ interface EditableChordLineProps {
   lineHeight: number,
   letterWidth: number,
   devMode: boolean,
+  dispatch: Dispatch,
 }
 
 type AddSignType = {
@@ -18,6 +24,13 @@ type AddSignType = {
   x: number,
   y: number,
 };
+
+type AddChordMenuType = {
+  isVisible: boolean,
+  position: number,
+  x: number,
+  y: number,
+}
 
 const EditableChordLine: FC<EditableChordLineProps> = ({
   index,
@@ -27,6 +40,7 @@ const EditableChordLine: FC<EditableChordLineProps> = ({
   lineHeight,
   letterWidth,
   devMode,
+  dispatch,
 }) => {
   const chordLineRef = useRef<HTMLDivElement>(null);
   const elementTop = chordLineRef.current?.getBoundingClientRect().top || 0;
@@ -38,11 +52,19 @@ const EditableChordLine: FC<EditableChordLineProps> = ({
     y: 0,
   }
 
+  const initialAddChordMenuState: AddChordMenuType = {
+    isVisible: false,
+    position: 0,
+    x: 0,
+    y: 0,
+  }
+
   const chordPositions = paragraph.chords?.map(({ position }) => {
     return parseInt(`${position}`);
   });
 
   const [addSign, setAddSign] = useState<AddSignType>(initialAddSignState);
+  const [addChordMenu, setAddChordMenu] = useState<AddChordMenuType>(initialAddChordMenuState);
 
   const chordElements = paragraph.chords?.map((chord, i) => {
     return (
@@ -53,18 +75,23 @@ const EditableChordLine: FC<EditableChordLineProps> = ({
         blockIndex={blockIndex}
         chord={chord}
         letterWidth={letterWidth}
+        paragraphLength={paragraph.text.length}
       />
     ); 
   });
 
+  const getChordPosition = (pageX: number, elementLeft: number) => {
+    return Math.floor((pageX - elementLeft) / letterWidth);
+  }
+
   const handleOnMouseMoveCapture: MouseEventHandler<HTMLDivElement> = (event) => {
     event.stopPropagation();
-    const mousePosition = Math.floor((event.pageX - elementLeft) / letterWidth);
+    const chordPosition = getChordPosition(event.pageX, elementLeft);
 
-    if (mousePosition < 0 ||
-      chordPositions?.includes(mousePosition) ||
-      chordPositions?.includes(mousePosition + 1) ||
-      chordPositions?.includes(mousePosition - 1)
+    if (chordPosition < 0 ||
+      chordPositions?.includes(chordPosition) ||
+      chordPositions?.includes(chordPosition + 1) ||
+      chordPositions?.includes(chordPosition - 1)
     ) {
       setAddSign(initialAddSignState);
       return;
@@ -82,9 +109,29 @@ const EditableChordLine: FC<EditableChordLineProps> = ({
     setAddSign(initialAddSignState);
   }
 
-  useEffect(() => {
-    return
-  }, []);
+  const handleOnClick: MouseEventHandler<HTMLDivElement> = (event) => {
+    const position = getChordPosition(event.pageX, elementLeft);
+    const x = elementLeft + Math.floor((event.pageX - elementLeft) / letterWidth) * letterWidth;
+
+    setAddChordMenu({
+      isVisible: true,
+      x, y: elementTop - 10,
+      position,
+    });
+  }
+
+  const handleAddChord = ({ rootNote, shape, }: {
+    rootNote: RootNoteType,
+    shape: ShapeType,
+  }) => {
+    dispatch(addChord({
+      paragraphIndex: index,
+      blockIndex,
+      rootNote,
+      shape,
+      position: addChordMenu.position,
+    }));
+  }
 
   return (
     <>
@@ -93,13 +140,26 @@ const EditableChordLine: FC<EditableChordLineProps> = ({
         x={addSign.x}
         y={addSign.y}
       />
+
+      <AddChordMenu
+        isVisible={addChordMenu.isVisible}
+        x={addChordMenu.x}
+        y={addChordMenu.y}
+        close={() => setAddChordMenu(initialAddChordMenuState)}
+        addChord={handleAddChord}
+      />
+
       <div
         style={{ width: `${(width * letterWidth)}px`, outline: devMode ? "1px solid green" : "none", top: `${18+index*lineHeight}px` }}
-        className="h-4 flex items-center gap-3 rounded-sm absolute left-[30px] z-50 cursor-pointer"
-        onMouseMoveCapture={handleOnMouseMoveCapture}
-        onMouseLeave={handleOnMouseLeave}
+        className="h-4 flex items-center gap-3 rounded-sm absolute left-[30px] z-40"
         ref={chordLineRef}
       >
+        <div
+          className="w-full h-full absolute cursor-pointer"
+          onMouseMoveCapture={handleOnMouseMoveCapture}
+          onMouseLeave={handleOnMouseLeave}
+          onClick={handleOnClick}
+        ></div>
         { chordElements }
         { devMode && <code className="text-[10px] m-0 whitespace-nowrap mx-1">
           { blockIndex }-{ index }

@@ -34,13 +34,12 @@ const CommentBlock: FC<CommentBlockProps> = ({
         <BlockOption icon="duplicate" />
         <BlockOption icon="menu" />
       </BlockOptionList>
-      <p>
-        <textarea 
-          className="custom-input w-full border-app-darker-outline"
+      <textarea 
+          className="invisible-textarea font-mono w-full min-h-[24px] leading-[48px] resize-none"
           value={text}
           onChange={handleOnChange}
+          spellCheck={false}
         />
-      </p>
     </div>
   );
 

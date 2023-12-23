@@ -57,12 +57,12 @@ const ProjectNavigation: FC<ProjectNavigationProps> = ({
         >
           ✕
         </button>
-        <h1 className="text-xl sm:text-2xl select-none">PROJECTS</h1>
+        <h1 className="text-3xl select-none">PROJECTS</h1>
         <List
           setUrlParam={setUrlParam}
         />
         <button 
-          className="w-2/3 sm:w-full h-6 sm:h-7 bg-app-lighter-gray flex justify-center items-center text-[10px] sm:text-xs rounded-full shadow-md cursor-pointer outline-transparent hover:outline hover:outline-2 hover:outline-slate-100 hover:scale-95 select-none transition p-[2px_8px]"
+          className="w-2/3 sm:w-full h-8 sm:h-9 bg-app-lighter-gray flex justify-center items-center text-xs rounded-full shadow-md cursor-pointer outline-transparent hover:outline hover:outline-2 hover:outline-slate-100 hover:scale-95 select-none transition p-[2px_8px]"
           onClick={handleAddNewProject}
         >
           NEW PROJECT
@@ -75,16 +75,16 @@ const ProjectNavigation: FC<ProjectNavigationProps> = ({
 
   return (
     <div
-      className="w-[200px] h-full max-h-screen bg-app-light-gray overflow-hidden flex items-stretch justify-between shadow-2xl relative"
+      className="w-[250px] h-full max-h-screen bg-app-light-gray overflow-hidden flex items-stretch justify-between shadow-2xl relative"
       ref={navigationRef}
     >
       <div className="w-full h-full max-h-screen flex-1 flex flex-col justify-between gap-5 p-4">
-        <h1 className="text-xl sm:text-2xl select-none">PROJECTS</h1>
+        <h1 className="text-2xl sm:text-[28px] m-1 select-none">PROJECTS</h1>
         <List
           setUrlParam={setUrlParam}
         />
         <button 
-          className="w-2/3 sm:w-full h-6 sm:h-7 bg-app-lighter-gray flex justify-center items-center text-[10px] sm:text-xs rounded-full shadow-md cursor-pointer outline-transparent hover:outline hover:outline-2 hover:outline-slate-100 hover:scale-95 select-none transition p-[2px_8px]"
+          className="w-2/3 sm:w-full h-8 sm:h-9 bg-app-lighter-gray flex justify-center items-center text-xs sm:text-sm rounded-full shadow-md cursor-pointer outline-transparent hover:outline hover:outline-2 hover:outline-slate-100 hover:scale-95 select-none transition p-[2px_8px]"
           onClick={handleAddNewProject}
         >
           NEW PROJECT

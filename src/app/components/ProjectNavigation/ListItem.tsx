@@ -79,10 +79,10 @@ const ListItem: FC<ListItemProps> = ({
       <button
         onClick={onSelectProject}
         onContextMenu={handleOnContextMenu}
-        className="relative w-full h-8 sm:h-10 bg-app-gray flex justify-between items-center shadow-md rounded-xl px-3 cursor-pointer outline-transparent hover:outline hover:outline-2 hover:outline-app-lighter-outline hover:scale-95 select-none z-10 group transition"
+        className="relative w-full h-10 sm:h-12 bg-app-gray flex justify-between items-center shadow-md rounded-xl px-3 cursor-pointer outline-transparent hover:outline hover:outline-2 hover:outline-app-lighter-outline hover:scale-95 select-none z-10 group transition"
       >
         <p
-          className="italic text-xs sm:text-sm whitespace-nowrap overflow-hidden px-1"
+          className="italic text-sm sm:text-[16px] whitespace-nowrap overflow-hidden px-1"
         >
           {name}
         </p>

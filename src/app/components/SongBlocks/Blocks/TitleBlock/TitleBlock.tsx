@@ -43,7 +43,7 @@ const TitleBlock: FC<TitleBlockProps> = ({
         <BlockOption icon="menu" />
       </BlockOptionList>
       <input
-        className="text-input text-3xl font-sans"
+        className="text-input text-4xl font-sans"
         type="text"
         placeholder='title'
         value={title}
@@ -51,7 +51,7 @@ const TitleBlock: FC<TitleBlockProps> = ({
         spellCheck={false}
       />
       <input
-        className="text-input"
+        className="text-input text-lg"
         type="text"
         placeholder="subtitle"
         value={subtitle}
@@ -63,8 +63,8 @@ const TitleBlock: FC<TitleBlockProps> = ({
 
   return (
     <div className="w-full flex flex-col items-center gap-2 rounded-lg p-5 relative">
-      <h1 className="text-3xl font-sans">{title}</h1>
-      <h2>{subtitle}</h2>
+      <h1 className="text-4xl font-sans">{title}</h1>
+      <h2 className="text-lg">{subtitle}</h2>
     </div>
   );
 }

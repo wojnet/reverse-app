@@ -60,6 +60,7 @@ const TextBlock: FC<TextBlockProps> = ({
           lineHeight={lineHeight}
           devMode={devMode}
           letterWidth={letterWidth}
+          dispatch={dispatch}
         />
       );
     });
@@ -83,6 +84,7 @@ const TextBlock: FC<TextBlockProps> = ({
           value={textareaValue}
           onChange={handleOnChange}
           spellCheck={false}
+          wrap="off"
         />
       </div>
     );

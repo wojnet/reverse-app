@@ -24,7 +24,7 @@ const UserOptions: FC<UserOptionsProps> = ({}) => {
             session={session}
           />
           <button
-            className="text-xs font-bold border border-1 border-slate-600 p-[2px_6px] rounded-xl shadow-lg hover:scale-95 transition"
+            className="text-sm font-bold border border-1 border-slate-600 p-[2px_6px] rounded-xl shadow-lg hover:scale-95 transition"
             onClick={() => signOut({ callbackUrl: "/" })}
           >
             Sign out
