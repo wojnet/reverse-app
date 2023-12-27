@@ -25,6 +25,21 @@ const Home = () => {
             GET STARTED!
           </Link>
         </main>
+        <div className="flex-1"></div>
+        <footer
+          className="h-20 flex items-center"
+        >
+        <Link
+          href="https://github.com/wojnet/songwriter-app"
+          target="_blank"
+        >
+          <img
+            className="opacity-80 hover:opacity-40 cursor-pointer transition"
+            src="/icons/github.svg"
+            alt="github link"
+          />
+        </Link>
+        </footer>
       </div>
     </>
   );

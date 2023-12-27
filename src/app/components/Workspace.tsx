@@ -145,7 +145,7 @@ const Workspace: FC<WorkspaceProps> = ({
         ☰
       </button> }
 
-      { songData.contents.length && <div
+      { songData?.contents.length && <div
         className="w-full h-full flex-1 flex flex-col items-center overflow-x-hidden overflow-y-auto"
       >
         <CreateOptionBar 
