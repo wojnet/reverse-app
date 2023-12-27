@@ -58,7 +58,8 @@ const CommentBlock: FC<CommentBlockProps> = ({
 
   return (
     <div className="w-3/4 flex flex-col items-start gap-2 rounded-lg p-5 relative">
-      { text.split("\n").map(text => <p
+      { text.split("\n").map((text, index) => <p
+        key={index}
         className="font-mono text-sheet-outline"
       >
         {text}
