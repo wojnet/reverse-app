@@ -1,11 +1,11 @@
 const sampleSong = {
-  name: "Dziwak",
+  name: "Buddy Holly",
   contents: [
     {
       type: "TITLE_BLOCK",
       data: {
-        title: "Dziwak",
-        subtitle: "Radiogłowi"
+        title: "Buddy Holly",
+        subtitle: "Weezer"
       }
     },
     {
@@ -13,22 +13,27 @@ const sampleSong = {
       data: {
         paragraphs: [
           {
-            text: "Bo ja jestem krepem",
+            text: "Woo-ee-oo",
             chords: [
               {
                 position: 1,
-                rootNote: "G",
+                rootNote: "A",
                 shape: "major"
               }
             ]
           },
           {
-            text: "Jestem dziwakiem",
+            text: "I look just like Buddy Holly",
             chords: [
               {
-                "rootNote": "B",
+                "rootNote": "D",
                 "shape": "major",
-                "position": 8
+                "position": 8,
+              },
+              {
+                "rootNote": "E",
+                "shape": "major",
+                "position": 24,
               }
             ]
           },
