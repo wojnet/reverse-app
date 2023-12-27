@@ -10,6 +10,7 @@ export type OptionsState = {
   devMode: boolean,
   mobileMode: boolean,
   isMobileNavbarVisible: boolean,
+  isAccentPaletteVisible: boolean,
 }
 
 const initialState: OptionsState = {
@@ -17,6 +18,7 @@ const initialState: OptionsState = {
   devMode: false,
   mobileMode: false,
   isMobileNavbarVisible: false,
+  isAccentPaletteVisible: false,
 }
 
 export const optionsSlice = createSlice({
@@ -25,6 +27,9 @@ export const optionsSlice = createSlice({
   reducers: {
     changeEditMode: (state, action) => {
       state.editMode = action.payload;
+    },
+    toggleEditMode: (state) => {
+      state.editMode = !state.editMode;
     },
     changeDevMode: (state, action) => {
       state.devMode = action.payload;
@@ -38,20 +43,26 @@ export const optionsSlice = createSlice({
     changeIsMobileNavbarVisible: (state, action) => {
       state.isMobileNavbarVisible = action.payload;
     },
+    toggleIsAccentPaletteVisible: (state) => {
+      state.isAccentPaletteVisible = !state.isAccentPaletteVisible;
+    }
   }
 });
 
 export const {
   changeEditMode,
+  toggleEditMode,
   changeDevMode,
   toggleDevMode,
   changeMobileMode,
   changeIsMobileNavbarVisible,
+  toggleIsAccentPaletteVisible,
 } = optionsSlice.actions;
 
 export const selectEditMode = (state: RootState) => state.options.editMode;
 export const selectDevMode = (state: RootState) => state.options.devMode;
 export const selectMobileMode = (state: RootState) => state.options.mobileMode;
 export const selectIsMobileNavbarVisible = (state: RootState) => state.options.isMobileNavbarVisible;
+export const selectIsAccentPaletteVisible = (state: RootState) => state.options.isAccentPaletteVisible;
 
 export default optionsSlice.reducer;

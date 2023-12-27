@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, RefObject, useEffect, useRef } from 'react';
 import { TextBlockDataType } from '@/types/song';
 import BlockOptionList from '../../Functionality/BlockOptionList';
 import BlockOption from '../../Functionality/BlockOption';
@@ -21,6 +21,8 @@ const TextBlock: FC<TextBlockProps> = ({
   editMode,
   dispatch,
 }) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   const devMode = useAppSelector(selectDevMode);
   const letterWidth = 9;
   const lineHeight = 48;
@@ -46,6 +48,15 @@ const TextBlock: FC<TextBlockProps> = ({
     }}));
   }
 
+  const resizeTextArea = (ref: RefObject<HTMLTextAreaElement>) => {
+    if (ref.current !== null) {
+      ref.current.style.height = "auto";
+      ref.current.style.height = ref.current.scrollHeight + "px";
+    }
+  }
+
+  useEffect(() => resizeTextArea(textareaRef), [paragraphs, editMode]);
+
   if (editMode) {
     const editableChordLines = paragraphs.map((paragraph, mapIndex) => {
       const width = paragraph.text.length;
@@ -68,23 +79,25 @@ const TextBlock: FC<TextBlockProps> = ({
     return (
       // EDITABLE TEXT_BLOCK
       <div className="w-full h-auto flex flex-col items-center gap-5 outline outline-1 outline-sheet-outline rounded-lg p-5 relative">
+        <h1 className="absolute text-sm left-2 top-[-12px] bg-sheet-background">
+          TEXT BLOCK
+        </h1>
         <BlockOptionList>
           <BlockOption
             onClick={() => dispatch(removeBlock(index))}
             confirm={true}
             icon="trash" 
           />
-          <BlockOption icon="duplicate" />
-          <BlockOption icon="menu" />
         </BlockOptionList>
         { editableChordLines }
         <textarea
-          className="invisible-textarea font-mono w-full h-48 leading-[48px] resize-none"
+          className="invisible-textarea font-mono w-full h-auto leading-[48px] resize-none"
           placeholder="write your song's lyrics here..."
           value={textareaValue}
           onChange={handleOnChange}
           spellCheck={false}
           wrap="off"
+          ref={textareaRef}
         />
       </div>
     );
@@ -92,7 +105,7 @@ const TextBlock: FC<TextBlockProps> = ({
 
   const paragraphElements = paragraphs?.map((paragraph, index) => {
     return <p
-      className="font-mono leading-[48px]"
+      className="font-mono leading-[48px] whitespace-nowrap"
       key={index}
     >
       {paragraph.text}

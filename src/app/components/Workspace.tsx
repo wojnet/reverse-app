@@ -19,7 +19,7 @@ import CreateOptionBar from './CreateOptionBar/CreateOptionBar';
 import ProjectNavigation from './ProjectNavigation/ProjectNavigation';
 import type { SongType } from '../../types/song';
 import { fetchSongData, saveChanges, selectIsLoading, selectIsSaved } from '../features/song/songSlice';
-import { changeIsMobileNavbarVisible, changeMobileMode, selectEditMode, selectMobileMode } from '../features/options/optionsSlice';
+import { changeEditMode, changeIsMobileNavbarVisible, changeMobileMode, selectEditMode, selectMobileMode, toggleEditMode } from '../features/options/optionsSlice';
 import AddBlock from './SongBlocks/AddBlock';
 import { selectSongData } from '../features/song/songSlice';
 import { throttle } from 'lodash';
@@ -97,6 +97,11 @@ const Workspace: FC<WorkspaceProps> = ({
     }
   });
 
+  useHotkeys("ctrl+e", (event) => {
+    event.preventDefault();
+    dispatch(toggleEditMode());
+  });
+
   const handleResize = (event: UIEvent) => {
     if (window.innerWidth >= 500) {
       dispatch(changeMobileMode(false));
@@ -140,7 +145,7 @@ const Workspace: FC<WorkspaceProps> = ({
         ☰
       </button> }
 
-      { songData && <div
+      { songData.contents.length && <div
         className="w-full h-full flex-1 flex flex-col items-center overflow-x-hidden overflow-y-auto"
       >
         <CreateOptionBar 
@@ -149,7 +154,7 @@ const Workspace: FC<WorkspaceProps> = ({
         />
         <div
           style={{ opacity: isLoading ? "0.5" : "1", gap: editMode ? "30px" : "0" }}
-          className="w-4/5 max-w-[800px] h-auto bg-sheet-background text-sheet-text flex-1 flex flex-col items-center gap-5 p-8 my-10 shadow-xl shadow-sheet-shadow rounded-xl transition"
+          className="w-4/5 max-w-[800px] h-auto bg-sheet-background text-sheet-text flex-1 flex flex-col items-center gap-5 p-8 my-10 pb-24 shadow-xl shadow-sheet-shadow rounded-xl transition"
         >
           { songContents }
           { editMode && <AddBlock dispatch={dispatch} /> }
