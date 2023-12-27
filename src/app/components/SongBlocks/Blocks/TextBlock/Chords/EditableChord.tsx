@@ -63,7 +63,6 @@ const EditableChord: FC<EditableChordProps> = ({
   const handleOnMouseMoveCapture: MouseEventHandler<HTMLDivElement> = (event) => {
     event.stopPropagation();
     event.preventDefault();
-    console.log(1);
   }
 
   return (
@@ -73,13 +72,13 @@ const EditableChord: FC<EditableChordProps> = ({
     >
       { isModalOpen && <div
         style={{ left: `${(chord.position * letterWidth) - 20}px` }}
-        className="absolute bg-app-gray flex flex-col items-start gap-1 outline outline-1 outline-app-outline rounded-xl shadow-[0_0_20px_2px] shadow-app-gray bottom-5 z-50 p-2"
+        className="absolute bg-sheet-background flex flex-col items-start gap-1 outline outline-1 outline-app-outline rounded-xl bottom-5 z-50 p-2"
       >
         <button
-          className="w-auto h-auto text-app-gray text-xs font-bold flex justify-center items-center rounded-md bg-app-text p-[2px_5px] hover:opacity-75 transition cursor-pointer"
+          className="w-auto h-auto text-sheet-outline text-xs font-bold flex justify-center items-center rounded-md outline outline-1 outline-sheet-outline p-[2px_5px] hover:opacity-75 transition cursor-pointer"
           onClick={() => setIsModalOpen(false)}
         >
-          exit
+          EXIT
         </button>
         <h3 className="text-xs">
           CHORD&nbsp;OPTIONS
@@ -89,19 +88,19 @@ const EditableChord: FC<EditableChordProps> = ({
         </p>
         <section className="flex gap-1">
           <button
-            className="w-5 h-5 text-xs text-app-text font-bold outline outline-1 outline-app-text rounded-lg p-[2px_5px] cursor-pointer hover:opacity-75"
+            className="w-5 h-5 text-xs text-sheet-outline font-bold outline outline-1 outline-sheet-outline rounded-lg p-[2px_5px] cursor-pointer hover:opacity-75"
             onClick={() => handleMoveChord(-1)}
           >
             {"<"}
           </button>
           <button
-            className="w-5 h-5 text-xs text-app-text font-bold outline outline-1 outline-app-text rounded-lg p-[2px_5px] cursor-pointer hover:opacity-75"
+            className="w-5 h-5 text-xs text-sheet-outline font-bold outline outline-1 outline-sheet-outline rounded-lg p-[2px_5px] cursor-pointer hover:opacity-75"
             onClick={() => handleMoveChord(1)}
           >
             {">"}
           </button>
           <button
-            className="w-5 h-5 text-xs text-app-text font-bold outline outline-1 outline-app-text rounded-lg p-[2px_5px] cursor-pointer hover:opacity-75"
+            className="w-5 h-5 text-xs text-sheet-outline font-bold outline outline-1 outline-sheet-outline rounded-lg p-[2px_5px] cursor-pointer hover:opacity-75"
             onClick={handleRemoveChord}
           >
             ✕
@@ -115,7 +114,7 @@ const EditableChord: FC<EditableChordProps> = ({
         onClick={handleOnClick}
       >
         <p
-          className="text-xs font-bold px-1 outline outline-1 outline-[#FFF8] outline-offset-[-1px] rounded-md [text-shadow:_0_0_4px_#000A] absolute select-none"
+          className="text-xs font-bold px-1 outline outline-1 outline-sheet-text outline-offset-[-1px] rounded-md absolute select-none"
           onMouseMoveCapture={handleOnMouseMoveCapture}
         >
           { chord.rootNote }

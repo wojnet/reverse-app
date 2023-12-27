@@ -73,7 +73,7 @@ const AddChordMenu: FC<AddChordMenuProps> = ({
   return (
     <div
       style={{ left: x, top: y }}
-      className="bg-app-gray flex flex-col items-center gap-2 outline outline-1 outline-app-outline rounded-xl shadow-[0_0_20px_2px] shadow-app-gray fixed z-50 p-2"
+      className="bg-sheet-background flex flex-col items-center gap-2 outline outline-1 outline-app-outline rounded-xl shadow-[0_0_20px_2px] shadow-sheet-shadow fixed z-50 p-2"
       ref={ref}
     >
       <section
@@ -107,7 +107,7 @@ const AddChordMenu: FC<AddChordMenuProps> = ({
         </select>
       </section>
       <button
-        className="w-full h-5 text-xs text-app-text font-bold outline outline-1 outline-app-text rounded-lg p-[2px_5px] cursor-pointer hover:opacity-75"
+        className="w-full h-5 text-xs text-sheet-text font-bold outline outline-1 outline-sheet-outline rounded-lg p-[2px_5px] cursor-pointer hover:opacity-75"
         onClick={handleOnClick}
       >
         ADD

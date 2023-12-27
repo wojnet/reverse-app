@@ -17,7 +17,7 @@ interface IconWrapperProps {
   children: React.ReactNode;
 }
 
-const iconStyle = "w-6 h-6 bg-app-gray text-app-outline flex justify-center items-center hover:outline-app-lighter-outline hover:scale-95 select-none z-10 rounded-md scale-90 sm:scale-100 cursor-pointer";
+const iconStyle = "w-6 h-6 bg-sheet-background text-app-outline flex justify-center items-center hover:outline-app-lighter-outline hover:scale-95 select-none z-10 rounded-md scale-90 sm:scale-100 cursor-pointer";
 
 const BlockOption: FC<BlockOptionProps> = ({
   onClick,

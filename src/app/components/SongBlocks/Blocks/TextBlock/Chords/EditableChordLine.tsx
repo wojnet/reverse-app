@@ -111,6 +111,8 @@ const EditableChordLine: FC<EditableChordLineProps> = ({
 
   const handleOnClick: MouseEventHandler<HTMLDivElement> = (event) => {
     const position = getChordPosition(event.pageX, elementLeft);
+    if (position < 0 || position >= paragraph.text.length) return;
+
     const x = elementLeft + Math.floor((event.pageX - elementLeft) / letterWidth) * letterWidth;
 
     setAddChordMenu({

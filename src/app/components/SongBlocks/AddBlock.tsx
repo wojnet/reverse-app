@@ -26,7 +26,7 @@ const AddBlock: FC<AddBlockProps> = ({ dispatch }) => {
 
   return (
     <div
-      className="w-8 h-8 bg-app-gray flex justify-center items-center text-app-outline hover:bg-app-lighter-outline hover:text-app-gray text-3xl font-bold outline outline-2 outline-app-outline hover:outline-app-lighter-outline select-none z-10 rounded-md cursor-pointer relative transition"
+      className="w-8 h-8 bg-sheet-background flex justify-center items-center text-sheet-outline hover:bg-sheet-outline hover:text-sheet-background text-3xl font-bold outline outline-2 outline-sheet-outline hover:outline-sheet-outline select-none z-10 rounded-md cursor-pointer relative transition"
     >
       <button
         className="absolute top-0 right-0 bottom-0 left-0"
@@ -36,7 +36,7 @@ const AddBlock: FC<AddBlockProps> = ({ dispatch }) => {
       <p>+</p>
       <ul
         ref={listRef}
-        className="absolute text-white text-sm text-center scale-0 transition top-[50px] origin-top"
+        className="absolute text-sheet-outline text-sm text-center scale-0 transition top-[50px] origin-top"
         style={ isOpen ? { transform: "scale(1)" } : { transform: "scale(0)" } }
       >
         <button

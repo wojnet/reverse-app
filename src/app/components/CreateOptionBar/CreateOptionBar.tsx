@@ -63,12 +63,6 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({
         className="w-full h-12 flex-shrink-0 bg-app-light-gray flex justify-between items-center gap-2 px-4 shadow-lg sticky top-0 z-30"
     >
       <section className="flex items-center gap-2">
-        { mobileMode && <button
-          className="mr-5 text-xl font-bold"
-          onClick={() => dispatch(changeIsMobileNavbarVisible(true))}
-        >
-          ☰
-        </button> }
         <button
           className="text-xs sm:text-sm border border-1 border-app-text p-[2px_7px] rounded-full hover:scale-95 disabled:opacity-25 disabled:hover:scale-100 transition"
           onClick={() => dispatch(saveChanges())}

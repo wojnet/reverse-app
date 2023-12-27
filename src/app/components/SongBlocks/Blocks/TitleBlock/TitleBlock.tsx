@@ -32,7 +32,7 @@ const TitleBlock: FC<TitleBlockProps> = ({
   }
 
   if (editMode) return (
-    <div className="w-full max-w-[700px] flex flex-col items-center gap-2 outline outline-1 outline-app-outline rounded-lg p-5 relative">
+    <div className="w-full flex flex-col items-center gap-2 outline outline-1 outline-sheet-outline rounded-lg p-5 relative">
       <BlockOptionList>
         <BlockOption
           onClick={() => dispatch(removeBlock(index))}

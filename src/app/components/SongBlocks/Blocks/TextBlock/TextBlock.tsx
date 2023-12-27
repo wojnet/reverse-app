@@ -67,7 +67,7 @@ const TextBlock: FC<TextBlockProps> = ({
 
     return (
       // EDITABLE TEXT_BLOCK
-      <div className="w-full max-w-[700px] h-auto flex flex-col items-center gap-5 outline outline-1 outline-app-outline rounded-lg p-5 relative">
+      <div className="w-full h-auto flex flex-col items-center gap-5 outline outline-1 outline-sheet-outline rounded-lg p-5 relative">
         <BlockOptionList>
           <BlockOption
             onClick={() => dispatch(removeBlock(index))}
@@ -118,7 +118,7 @@ const TextBlock: FC<TextBlockProps> = ({
 
   return (
     // TEXT_BLOCK
-    <div className="w-full max-w-[700px] h-auto flex flex-col items-start gap-5 rounded-lg p-5 relative">
+    <div className="w-full h-auto flex flex-col items-start gap-5 rounded-lg p-5 relative">
       <div
         className="px-[10px]"
       >

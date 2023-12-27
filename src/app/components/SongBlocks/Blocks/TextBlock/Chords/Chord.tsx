@@ -23,7 +23,7 @@ const Chord: FC<ChordProps> = ({
       style={{ left: `${(chord.position * letterWidth) - .5*letterWidth}px` }}
       className="w-0 h-full flex justify-start items-center rounded-md absolute"
     >
-      <p className="text-xs font-bold px-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-md [text-shadow:_0_0_4px_#000A] absolute select-none">
+      <p className="text-xs text-sheet-chord-text font-bold px-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-md absolute select-none">
         { chord.rootNote }
         { chordShapeToSymbol(chord.shape) }
       </p>

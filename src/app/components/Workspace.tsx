@@ -133,24 +133,31 @@ const Workspace: FC<WorkspaceProps> = ({
         mobileMode={mobileMode}
       />
 
-      { songData && <div
-        className="w-full h-full flex-1 flex flex-col overflow-x-hidden overflow-y-auto"
+      { mobileMode && <button
+        className="text-3xl font-bold fixed top-3 left-3"
+        onClick={() => dispatch(changeIsMobileNavbarVisible(true))}
       >
-          <CreateOptionBar 
-            initialProjectName={songData.name}
-            setUrlParam={setUrlParam}
-          />
-          <div
-            style={{ opacity: isLoading ? "0.5" : "1", gap: editMode ? "30px" : "0" }}
-            className="w-full h-full flex-1 flex flex-col items-center gap-5 p-5 my-5 transition"
-          >
-            { songContents }
-            { editMode && <AddBlock dispatch={dispatch} /> }
-          </div>
-        </div> }
+        ☰
+      </button> }
+
+      { songData && <div
+        className="w-full h-full flex-1 flex flex-col items-center overflow-x-hidden overflow-y-auto"
+      >
+        <CreateOptionBar 
+          initialProjectName={songData.name}
+          setUrlParam={setUrlParam}
+        />
+        <div
+          style={{ opacity: isLoading ? "0.5" : "1", gap: editMode ? "30px" : "0" }}
+          className="w-4/5 max-w-[800px] h-auto bg-sheet-background text-sheet-text flex-1 flex flex-col items-center gap-5 p-8 my-10 shadow-xl shadow-sheet-shadow rounded-xl transition"
+        >
+          { songContents }
+          { editMode && <AddBlock dispatch={dispatch} /> }
+        </div>
+      </div> }
 
       { (!songData) && <div className="w-full h-full1 flex-1 flex flex-col items-center">
-          <h2 className="text-2xl m-10 animate-pulse">
+          <h2 className="text-2xl text-center m-10 animate-pulse">
             Choose or create a project
           </h2>
         </div> }

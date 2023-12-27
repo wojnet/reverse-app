@@ -26,6 +26,14 @@ const config: Config = {
           'outline': "#64748b",
           'lighter-outline': "#f1f5f9",
           'darker-outline': "#404c5c",
+        },
+        'sheet': {
+          'text': "var(--sheet-text)",
+          'background': "var(--sheet-background)",
+          'outline': "var(--sheet-outline)",
+          'accent': "var(--sheet-accent)",
+          'shadow': "var(--sheet-shadow)",
+          'chord-text': "var(--sheet-chord-text)",
         }
       }
     },
