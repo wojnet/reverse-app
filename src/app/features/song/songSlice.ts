@@ -134,8 +134,6 @@ export const songSlice = createSlice({
             }[]
           }}
 
-          console.log(tempBlock.data.paragraphs[paragraphIndex]);
-
           if (tempBlock.data.paragraphs[paragraphIndex].chords) {
             tempBlock.data.paragraphs[paragraphIndex].chords = [
               ...tempBlock.data.paragraphs[paragraphIndex].chords,

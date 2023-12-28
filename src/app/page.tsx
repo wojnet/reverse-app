@@ -5,8 +5,15 @@ import Image from "next/image";
 const Home = () => {
   return (
     <>
-    <Image
-        className="fixed opacity-10 blur-[2px]"
+      <Image
+        className="fixed opacity-10 blur-[3px] animate-wiggle overflow-x-hidden"
+        src="/grid.png"
+        alt="grid background"
+        width={1000}
+        height={1000}
+      />
+      <Image
+        className="fixed opacity-5 blur-[1px] [animation-delay:_-2.5s] animate-wiggle overflow-x-hidden"
         src="/grid.png"
         alt="grid background"
         width={1000}
@@ -16,7 +23,7 @@ const Home = () => {
         <MainHeader />
         <main className="w-full h-full flex flex-col items-center gap-5 p-[80px_50px] z-50">
           <h1 className="max-w-[450px] select-none text-center text-6xl text-transparent font-bold bg-clip-text bg-gradient-to-r from-blue-700 to-pink-500 [text-shadow:_2px_2px_10px_#DDF6]">
-            BEST WAY TO START A SONG
+            BEST WAY TO WRITE A SONG
           </h1>
           <Link
             className="text-blue-400 bg-white text-lg select-none border border-1 border-blue-400 font-bold p-[3px_8px] rounded-xl shadow-md hover:scale-95 hover:bg-blue-400 hover:text-white transition mb-[100px]"
@@ -30,7 +37,7 @@ const Home = () => {
           className="h-20 flex items-center"
         >
         <Link
-          href="https://github.com/wojnet/songwriter-app"
+          href="https://github.com/wojnet/reverse-app"
           target="_blank"
         >
           <img

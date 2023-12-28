@@ -35,7 +35,18 @@ const config: Config = {
           'shadow': "var(--sheet-shadow)",
           'chord-text': "var(--sheet-chord-text)",
         }
-      }
+      },
+      keyframes: {
+        wiggleAnimation: {
+          '10%, 90%': { transform: 'translate3d(-1px, -4px, 0)' },
+          '20%, 80%': { transform: 'translate3d(2px, 0, 6px)' },
+          '30%, 50%, 70%': { transform: 'translate3d(-4px, -1px, 0)' },
+          '40%, 60%': { transform: 'translate3d(3px, 2px, -6px)' },
+        }
+      },
+      animation: {
+        'wiggle': 'wiggleAnimation 10s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

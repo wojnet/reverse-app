@@ -43,6 +43,9 @@ export const optionsSlice = createSlice({
     changeIsMobileNavbarVisible: (state, action) => {
       state.isMobileNavbarVisible = action.payload;
     },
+    changeIsAccentPaletteVisible: (state, action) => {
+      state.isAccentPaletteVisible = action.payload;
+    },
     toggleIsAccentPaletteVisible: (state) => {
       state.isAccentPaletteVisible = !state.isAccentPaletteVisible;
     }
@@ -56,6 +59,7 @@ export const {
   toggleDevMode,
   changeMobileMode,
   changeIsMobileNavbarVisible,
+  changeIsAccentPaletteVisible,
   toggleIsAccentPaletteVisible,
 } = optionsSlice.actions;
 

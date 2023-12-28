@@ -16,9 +16,7 @@ export const PUT = async (req: NextRequest) => {
   try {
     const client = await clientPromise;
     const db = client.db("songwritingApp");
-    const collection = db.collection("projects");
-
-    console.log(contents);    
+    const collection = db.collection("projects"); 
 
     const response = await collection.updateOne({
       _id: new ObjectId(id),

@@ -33,14 +33,6 @@ export const options: NextAuthOptions = {
 
         console.log("user", user);
 
-        // const provider = await collection.findOne({
-        //   userId: user.id,
-        // }, {
-        //   projection: {
-        //     provider: true,
-        //   }
-        // });
-
         if (count === 0) {
           let newUserData = {
             userId: user.id,

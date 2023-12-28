@@ -6,6 +6,7 @@ import {
 } from '@/hooks/redux';
 import {
   changeEditMode,
+  changeIsAccentPaletteVisible,
   changeIsMobileNavbarVisible,
   selectDevMode,
   selectEditMode,
@@ -42,7 +43,7 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({
   const isAccentPaletteVisible = useAppSelector(selectIsAccentPaletteVisible);
 
   const accentPaletteRef = useClickAway<HTMLDivElement>(() => {
-    dispatch(toggleIsAccentPaletteVisible());
+    dispatch(changeIsAccentPaletteVisible(false));
   });
 
   const handleOnChangeToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,17 +95,20 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({
         />
       </section>
       <div className="select-none relative">
-        <button onClick={() => dispatch(toggleIsAccentPaletteVisible())}>
-          🎨
-        </button>
-        { isAccentPaletteVisible && <div
-          className="absolute w-24 flex flex-col items-center gap-2 bg-app-lighter-gray p-2 rounded-lg shadow-xl top-0 left-7"
-          ref={accentPaletteRef}
-        >
-          <p className="text-sm">not yet</p>
-          <p className="text-sm">{"(„• ֊ •„)"}</p>
-          <input type="color" />
-        </div> }
+        <section ref={accentPaletteRef}>
+          <button
+            onClick={() => dispatch(toggleIsAccentPaletteVisible())}
+          >
+            🎨
+          </button>
+          { isAccentPaletteVisible && <div
+            className="absolute w-24 flex flex-col items-center gap-2 bg-app-lighter-gray p-2 rounded-lg shadow-xl top-0 left-7"
+          >
+            <p className="text-sm">not yet</p>
+            <p className="text-sm">{"(„• ֊ •„)"}</p>
+            <input type="color" />
+          </div> }
+        </section>
       </div>
       <EditableInput
         className="w-fit text-right"
