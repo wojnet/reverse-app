@@ -103,10 +103,10 @@ const Workspace: FC<WorkspaceProps> = ({
   });
 
   const handleResize = (event: UIEvent) => {
-    if (window.innerWidth >= 500) {
+    if (window.innerWidth >= 600) {
       dispatch(changeMobileMode(false));
       dispatch(changeIsMobileNavbarVisible(false));
-    } else if (window.innerWidth < 500) {
+    } else if (window.innerWidth < 600) {
       dispatch(changeMobileMode(true));
     }
   }
@@ -119,7 +119,7 @@ const Workspace: FC<WorkspaceProps> = ({
 
   useEffect(() => {
     dispatch(changeMobileMode(
-      window.innerWidth >= 500 ?
+      window.innerWidth >= 600 ?
       false :
       true
     ));
@@ -138,13 +138,6 @@ const Workspace: FC<WorkspaceProps> = ({
         mobileMode={mobileMode}
       />
 
-      { mobileMode && <button
-        className="text-3xl font-bold fixed top-3 left-3"
-        onClick={() => dispatch(changeIsMobileNavbarVisible(true))}
-      >
-        ☰
-      </button> }
-
       { songData?.contents.length && <div
         className="w-full h-full flex-1 flex flex-col items-center overflow-x-hidden overflow-y-auto"
       >
@@ -153,7 +146,13 @@ const Workspace: FC<WorkspaceProps> = ({
           setUrlParam={setUrlParam}
         />
         <div
-          style={{ opacity: isLoading ? "0.5" : "1", gap: editMode ? "30px" : "0" }}
+          style={{
+            opacity: isLoading ? "0.5" : "1",
+            gap: editMode ? "30px" : "0",
+            width: mobileMode ? "100%" : "80%",
+            marginBlock: mobileMode ? "0" : "40px",
+            borderRadius: mobileMode ? "0" : "12px",
+          }}
           className="w-4/5 max-w-[800px] h-auto bg-sheet-background text-sheet-text flex-1 flex flex-col items-center gap-5 p-8 my-10 pb-24 shadow-xl shadow-sheet-shadow rounded-xl transition"
         >
           { songContents }
@@ -162,10 +161,16 @@ const Workspace: FC<WorkspaceProps> = ({
       </div> }
 
       { (!songData) && <div className="w-full h-full1 flex-1 flex flex-col items-center">
-          <h2 className="text-2xl text-center m-10 animate-pulse">
-            Choose or create a project
-          </h2>
-        </div> }
+        <button
+          className="text-3xl font-bold fixed top-3 left-3"
+          onClick={() => dispatch(changeIsMobileNavbarVisible(true))}
+        >
+          ☰
+        </button>
+        <h2 className="text-2xl text-center m-10 animate-pulse">
+          Choose or create a project
+        </h2>
+      </div> }
     </>
   );
 }

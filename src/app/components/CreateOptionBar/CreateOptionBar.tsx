@@ -67,6 +67,74 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({
     setProjectName(initialProjectName);
   }, [initialProjectName]);
 
+  if (mobileMode) return (
+    <div className="w-full flex items-center bg-app-light-gray shadow-lg sticky top-0 z-30">
+      <button
+        className="text-3xl font-bold p-2"
+        onClick={() => dispatch(changeIsMobileNavbarVisible(true))}
+      >
+        ☰
+      </button>
+      <div className="w-full flex flex-col items-end p-2">
+        <div
+            className="w-full flex-shrink-0 flex justify-between items-center gap-2"
+        >
+          <section className="h-6 flex items-center gap-2 flex-shrink-0">
+            <p className="text-xs sm:text-sm">
+              EDIT MODE
+            </p>
+            <ToggleSwitch
+              id="1"
+              state={editMode}
+              handleOnChange={handleOnChangeToggle}
+              size="small"
+            />
+          </section>
+          <EditableInput
+            className="text-right w-28"
+            type="text"
+            value={projectName}
+            onChange={handleOnChangeName}
+            onAccept={acceprProjectName}
+            spellCheck="false"
+            placeholder="project name"
+          />
+        </div>
+        <div
+            className="w-full flex-shrink-0 flex justify-start items-center gap-2"
+        >
+          <button
+            className="text-xs sm:text-sm border border-1 border-app-text p-[2px_7px] rounded-full hover:scale-95 disabled:opacity-25 disabled:hover:scale-100 transition"
+            onClick={() => dispatch(saveChanges())}
+            disabled={isSaved}
+          >
+            { isSaved ? "✅" : "💾" }
+            { isSaveLoading && <span>
+              saving
+            </span> }
+          </button>
+          <section ref={accentPaletteRef}>
+            <div className="select-none relative">
+              <button
+                className="text-xs sm:text-sm border border-1 border-app-text p-[2px_7px] rounded-full hover:scale-95 disabled:opacity-25 disabled:hover:scale-100 transition"
+                onClick={() => dispatch(toggleIsAccentPaletteVisible())}
+              >
+                🎨
+              </button>
+              { isAccentPaletteVisible && <div
+                className="absolute w-24 flex flex-col items-center gap-2 bg-app-lighter-gray p-2 rounded-lg shadow-xl top-0 left-7"
+              >
+                <p className="text-sm">not yet</p>
+                <p className="text-sm">{"(„• ֊ •„)"}</p>
+                <input type="color" />
+              </div> }
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div
         className="w-full h-12 flex-shrink-0 bg-app-light-gray flex justify-between items-center gap-2 px-4 shadow-lg sticky top-0 z-30"
@@ -77,10 +145,7 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({
           onClick={() => dispatch(saveChanges())}
           disabled={isSaved}
         >
-          { isSaved ?
-            mobileMode ? "✅" : "✅ SAVED" :
-            mobileMode ? "💾" : "💾 SAVE"
-          }
+          { isSaved ? "✅ SAVED" : "💾 SAVE" }
           { isSaveLoading && <span>
             ...
           </span> }
@@ -92,6 +157,7 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({
           id="1"
           state={editMode}
           handleOnChange={handleOnChangeToggle}
+          size="normal"
         />
       </section>
       <div className="select-none relative">
