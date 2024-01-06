@@ -28,6 +28,7 @@ const Home = () => {
           <Link
             className="text-blue-400 bg-white text-lg select-none border border-1 border-blue-400 font-bold p-[3px_8px] rounded-xl shadow-md hover:scale-95 hover:bg-blue-400 hover:text-white transition mb-[100px]"
             href="/create"
+            prefetch={false}
           >
             GET STARTED!
           </Link>
