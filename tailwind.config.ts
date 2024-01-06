@@ -31,7 +31,7 @@ const config: Config = {
           'text': "var(--sheet-text)",
           'background': "var(--sheet-background)",
           'outline': "var(--sheet-outline)",
-          'accent': "var(--sheet-accent)",
+          'chord': "var(--sheet-chord)",
           'shadow': "var(--sheet-shadow)",
           'chord-text': "var(--sheet-chord-text)",
         }

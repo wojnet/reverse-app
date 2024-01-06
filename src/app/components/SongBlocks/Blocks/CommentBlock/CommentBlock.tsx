@@ -3,7 +3,7 @@ import { ChangeEvent, FC, RefObject, useEffect, useRef, useState } from 'react';
 import BlockOptionList from '../../Functionality/BlockOptionList';
 import BlockOption from '../../Functionality/BlockOption';
 import { Dispatch } from '@reduxjs/toolkit';
-import { changeBlock, removeBlock } from '@/app/features/song/songSlice';
+import { changeBlock, moveBlock, removeBlock } from '@/app/features/song/songSlice';
 
 interface CommentBlockProps extends CommentBlockDataType {
   index: number,
@@ -35,11 +35,21 @@ const CommentBlock: FC<CommentBlockProps> = ({
   useEffect(() => resizeTextArea(textareaRef), [text, editMode]);
 
   if (editMode) return (
-    <div className="w-full flex flex-col items-center gap-5 outline outline-1 outline-sheet-outline rounded-lg p-5 relative">
+    <div className="sheet-block w-full flex flex-col items-center gap-5 outline outline-1 outline-sheet-outline rounded-lg p-5 relative">
       <h1 className="absolute text-sm left-2 top-[-12px] bg-sheet-background">
         COMMENT BLOCK
       </h1>
       <BlockOptionList>
+        <BlockOption
+          onClick={() => dispatch(moveBlock({ index, newIndex: index - 1 }))} 
+          confirm={true}
+          icon="upArrow" 
+        />
+        <BlockOption
+          onClick={() => dispatch(moveBlock({ index, newIndex: index + 1 }))} 
+          confirm={true}
+          icon="downArrow" 
+        />
         <BlockOption
           onClick={() => dispatch(removeBlock(index))} 
           confirm={true}
@@ -57,7 +67,7 @@ const CommentBlock: FC<CommentBlockProps> = ({
   );
 
   return (
-    <div className="w-3/4 flex flex-col items-start gap-2 rounded-lg p-5 relative">
+    <div className="sheet-block w-3/4 flex flex-col items-start gap-2 rounded-lg p-5 relative">
       { text.split("\n").map((text, index) => <p
         key={index}
         className="font-mono text-sheet-outline"

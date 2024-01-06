@@ -10,15 +10,15 @@ interface DuplicateIconProps {
 const DuplicateIcon: FC<DuplicateIconProps> = ({ className, fill, stroke, ...props }) => {
   return (
     <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={24}
-    height={24}
-    fill={fill || "none"}
-    stroke={stroke || "currentColor"}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    strokeWidth={2}
-    className={cn("feather feather-copy", className)}
+      xmlns="http://www.w3.org/2000/svg"
+      width={24}
+      height={24}
+      fill={fill || "none"}
+      stroke={stroke || "currentColor"}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      className={cn("feather feather-copy", className)}
     {...props}
   >
     <rect width={13} height={13} x={9} y={9} rx={2} ry={2} />

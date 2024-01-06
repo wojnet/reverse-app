@@ -23,13 +23,21 @@ export type CommentBlockDataType = {
   text: string
 }
 
+export type ColorsType = {
+  background: string,
+  text: string,
+  chord: string,
+}
+
+export type ColorType = "background" | "text" | "chord";
+
 export type SongType = {
   _id: string,
   name: string,
   userId: string,
   contents: {
     type: BlockType,
-    data: any
-    // data: TitleBlockDataType | TextBlockDataType | CommentBlockDataType
-  }[]
+    data: any,
+  }[],
+  colors?: ColorsType,
 }

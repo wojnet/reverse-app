@@ -34,6 +34,7 @@ import {
 import AddBlock from './SongBlocks/AddBlock';
 import { selectSongData } from '../features/song/songSlice';
 import { throttle } from 'lodash';
+import { defaultColors } from '@/data/defaultColors';
 
 const Workspace: FC = () => {
   const dispatch = useAppDispatch();
@@ -60,6 +61,10 @@ const Workspace: FC = () => {
 
     router.push(`${pathname}${query}`);
   }
+
+  // const backgroundColor = songData.colors?.background || defaultColors.background;
+  // const textColor = songData.colors?.text || defaultColors.text;
+  // const chordColor = songData.colors?.chord || defaultColors.chord;
 
   const songContents = songData?.contents.map((element, index) => {
     switch (element.type) {

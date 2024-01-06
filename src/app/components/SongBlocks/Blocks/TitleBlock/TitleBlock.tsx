@@ -2,7 +2,7 @@ import { ChangeEvent, FC } from 'react';
 import BlockOptionList from '../../Functionality/BlockOptionList';
 import BlockOption from '../../Functionality/BlockOption';
 import { Dispatch } from '@reduxjs/toolkit';
-import { changeBlock, removeBlock } from '@/app/features/song/songSlice';
+import { changeBlock, moveBlock, removeBlock } from '@/app/features/song/songSlice';
 
 interface TitleBlockProps {
   index: number,
@@ -32,11 +32,21 @@ const TitleBlock: FC<TitleBlockProps> = ({
   }
 
   if (editMode) return (
-    <div className="w-full flex flex-col items-center gap-2 outline outline-1 outline-sheet-outline rounded-lg p-5 relative">
+    <div className="sheet-block w-full flex flex-col items-center gap-2 outline outline-1 outline-sheet-outline rounded-lg p-5 relative">
       <h1 className="absolute text-sm left-2 top-[-12px] bg-sheet-background">
         TITLE BLOCK
       </h1>
       <BlockOptionList>
+        <BlockOption
+          onClick={() => dispatch(moveBlock({ index, newIndex: index - 1 }))} 
+          confirm={true}
+          icon="upArrow" 
+        />
+        <BlockOption
+          onClick={() => dispatch(moveBlock({ index, newIndex: index + 1 }))} 
+          confirm={true}
+          icon="downArrow" 
+        />
         <BlockOption
           onClick={() => dispatch(removeBlock(index))}
           confirm={true}
@@ -63,7 +73,7 @@ const TitleBlock: FC<TitleBlockProps> = ({
   );
 
   return (
-    <div className="w-full flex flex-col items-center gap-2 rounded-lg p-5 relative">
+    <div className="sheet-block w-full flex flex-col items-center gap-2 rounded-lg p-5 relative">
       <h1 className="text-4xl font-sans">{title}</h1>
       <h2 className="text-lg">{subtitle}</h2>
     </div>

@@ -3,8 +3,10 @@ import { FC, lazy } from 'react';
 const DuplicateIcon = lazy(() => import("../../Icons/DuplicateIcon"));
 const MenuIcon = lazy(() => import("../../Icons/MenuIcon"));
 const TrashIcon = lazy(() => import("../../Icons/TrashIcon"));
+const UpArrowIcon = lazy(() => import("../../Icons/UpArrowIcon"));
+const DownArrowIcon = lazy(() => import("../../Icons/DownArrowIcon"));
 
-type IconType = "menu" | "trash" | "duplicate";
+type IconType = "menu" | "trash" | "duplicate" | "upArrow" | "downArrow";
 
 interface BlockOptionProps {
   icon: IconType;
@@ -56,6 +58,18 @@ const BlockOption: FC<BlockOptionProps> = ({
   if (icon === "trash") return (
     <IconWrapper>
       <TrashIcon />
+    </IconWrapper>
+  );
+
+  if (icon === "upArrow") return (
+    <IconWrapper>
+      <UpArrowIcon />
+    </IconWrapper>
+  );
+
+  if (icon === "downArrow") return (
+    <IconWrapper>
+      <DownArrowIcon />
     </IconWrapper>
   );
 

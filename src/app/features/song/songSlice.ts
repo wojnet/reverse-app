@@ -5,12 +5,14 @@ import {
     PayloadAction,
 } from "@reduxjs/toolkit";
 import type { RootState } from "@/redux/store";
-import { ChordsType, SongType } from "@/types/song";
+import { ChordsType, ColorType, SongType } from "@/types/song";
 import { getSong } from "@/utils/song/getSong";
 import { getEmptyBlock } from "./emptyBlocks";
 import { saveSong } from "@/utils/song/saveSong";
 import { BlockType } from "@/types/blocks";
 import { RootNoteType, ShapeType } from "@/types/chords";
+import { arrayMove } from "@/utils/arrayMove";
+import { defaultColors } from "@/data/defaultColors";
   
 export type SongState = {
   songData: SongType,
@@ -25,7 +27,8 @@ const initialState: SongState = {
     _id: "",
     name: "",
     userId: "",
-    contents: []
+    contents: [],
+    colors: defaultColors,
   },
   isLoading: false,
   error: null,
@@ -47,7 +50,8 @@ export const saveChanges = createAsyncThunk(
     const state: any = getState();
     const response = await saveSong(
       state.song.songData._id,
-      state.song.songData.contents
+      state.song.songData.contents,
+      state.song.songData.colors,
     );
     return response;
   }
@@ -96,6 +100,29 @@ export const songSlice = createSlice({
             };
           }),
         }
+      }
+    },
+    moveBlock: (state, action: PayloadAction<{ index: number, newIndex: number }>) => {
+      if (
+        action.payload.newIndex > state.songData.contents.length - 1 ||
+        action.payload.newIndex < 0
+      ) {
+        return state;
+      }
+
+      const newContents = arrayMove(
+        state.songData.contents,
+        action.payload.index,
+        action.payload.newIndex,
+      );
+
+      return {
+        ...state,
+        songData: {
+          ...state.songData,
+          contents: newContents,
+        },
+        isSaved: false,
       }
     },
     removeBlock: (state, action) => {
@@ -179,6 +206,20 @@ export const songSlice = createSlice({
       ]
       state.isSaved = false;
     },
+    changeColor: (state, action: PayloadAction<{ changedPart: ColorType, color: string }>) => {
+      return {
+        ...state,
+        songData: {
+          ...state.songData,
+          colors: {
+            background: action.payload.changedPart === "background" ? action.payload.color : state.songData.colors?.background || "#F0F0F0",
+            text: action.payload.changedPart === "text" ? action.payload.color : state.songData.colors?.text || "#29292D",
+            chord: action.payload.changedPart === "chord" ? action.payload.color : state.songData.colors?.chord || "#5B65EB",
+          }
+        },
+        isSaved: false,
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSongData.pending, (state) => {
@@ -213,11 +254,13 @@ export const songSlice = createSlice({
 export const {
   addBlock,
   changeBlock,
+  moveBlock,
   removeBlock,
   addChord,
   changeChord,
   moveChord,
   removeChord,
+  changeColor,
 } = songSlice.actions;
 
 export const selectSongData = (state: RootState) => state.song.songData;
@@ -225,5 +268,6 @@ export const selectIsLoading = (state: RootState) => state.song.isLoading;
 export const selectError = (state: RootState) => state.song.error;
 export const selectIsSaved = (state: RootState) => state.song.isSaved;
 export const selectIsSaveLoading = (state: RootState) => state.song.isSaveLoading;
+export const selectColors = (state: RootState) => state.song.songData.colors;
 
 export default songSlice.reducer;

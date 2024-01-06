@@ -20,6 +20,7 @@ import { changeProjectName } from '@/app/features/projects/projectsSlice';
 import { useSearchParams } from 'next/navigation';
 import { saveChanges, selectIsSaveLoading, selectIsSaved } from '@/app/features/song/songSlice';
 import { useClickAway } from '@uidotdev/usehooks';
+import ColorPalette from './ColorPalette';
 
 type CreateOptionBarProps = {
   setUrlParam: (key: string, value: string) => void,
@@ -121,13 +122,9 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({
               >
                 🎨
               </button>
-              { isAccentPaletteVisible && <div
-                className="absolute w-24 flex flex-col items-center gap-2 bg-app-lighter-gray p-2 rounded-lg shadow-xl top-0 left-7"
-              >
-                <p className="text-sm">not yet</p>
-                <p className="text-sm">{"(„• ֊ •„)"}</p>
-                <input type="color" />
-              </div> }
+              { isAccentPaletteVisible && <ColorPalette
+              
+              /> }
             </div>
           </section>
         </div>
@@ -168,13 +165,9 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({
           >
             🎨
           </button>
-          { isAccentPaletteVisible && <div
-            className="absolute w-24 flex flex-col items-center gap-2 bg-app-lighter-gray p-2 rounded-lg shadow-xl top-0 left-7"
-          >
-            <p className="text-sm">not yet</p>
-            <p className="text-sm">{"(„• ֊ •„)"}</p>
-            <input type="color" />
-          </div> }
+          { isAccentPaletteVisible && <ColorPalette
+          
+          /> }
         </section>
       </div>
       <EditableInput

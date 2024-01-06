@@ -2,14 +2,14 @@ import { NextRequest } from "next/server";
 import clientPromise from "@lib/mongo/clientPromise";
 import { ObjectId } from "mongodb";
 import { cc } from "@/utils/consoleColor";
-import { SongType } from "@/types/song";
+import { ColorsType, SongType } from "@/types/song";
 import { getToken } from "next-auth/jwt";
 import { BlockType } from "@/types/blocks";
 
 export const PUT = async (req: NextRequest) => {
   const secret = process.env.NEXTAUTH_SECRET;
   const token = await getToken({ req, secret });
-  const { id, contents }: { id: string, contents: { type: BlockType, data: any } } = await req.json();
+  const { id, contents, colors }: { id: string, contents: { type: BlockType, data: any }, colors: ColorsType } = await req.json();
 
   console.log(cc("OKEJ OKEJ", "error"));
 
@@ -24,6 +24,7 @@ export const PUT = async (req: NextRequest) => {
     }, {
       $set: {
         contents: contents,
+        colors: colors,
       }
     });
 

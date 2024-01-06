@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import clientPromise from "@lib/mongo/clientPromise";
 import { getToken } from "next-auth/jwt";
 import { cc } from "@/utils/consoleColor";
+import { defaultColors } from "@/data/defaultColors";
 
 export const PUT = async (req: NextRequest) => {
   const secret = process.env.NEXTAUTH_SECRET;
@@ -25,6 +26,7 @@ export const PUT = async (req: NextRequest) => {
           subtitle: "my new song",
         },
       }],
+      colors: defaultColors,
     });
 
     console.log(`${cc("[CONSOLE][SUCCESS]", "success")} /api/projects/addNew:`, response);

@@ -26,11 +26,11 @@ const UserImage: FC<UserImageProps> = ({ session }) => {
   
   if (session?.user?.image) {
     return <Image
-      className="rounded-full [box-shadow:_2px_2px_7px_#0003]"
+      className="w-[42px] h-[42px] rounded-full [box-shadow:_2px_2px_7px_#0003]"
       src={session?.user?.image as string}
       alt="User image"
-      width={42}
-      height={42}
+      width={64}
+      height={64}
       onClick={handleOnClick}
     />  
   }

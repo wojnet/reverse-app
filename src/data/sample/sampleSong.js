@@ -1,3 +1,5 @@
+import { defaultColors } from "../defaultColors";
+
 const sampleSong = {
   name: "Buddy Holly",
   contents: [
@@ -40,7 +42,8 @@ const sampleSong = {
         ]
       }
     }
-  ]
+  ],
+  colors: defaultColors,
 }
 
 export default sampleSong;
