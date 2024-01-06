@@ -5,7 +5,6 @@ import ChordAddSign from './ChordAddSign';
 import { Dispatch } from '@reduxjs/toolkit';
 import { addChord } from '@/app/features/song/songSlice';
 import AddChordMenu from './AddChordMenu';
-import { useClickAway } from '@uidotdev/usehooks';
 import { RootNoteType, ShapeType } from '@/types/chords';
 
 interface EditableChordLineProps {

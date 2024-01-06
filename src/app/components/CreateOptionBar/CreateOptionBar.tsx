@@ -49,7 +49,6 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({
   const handleOnChangeToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       dispatch(changeEditMode(true));
-
     } else {
       dispatch(changeEditMode(false));
     }
@@ -67,6 +66,7 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({
     setProjectName(initialProjectName);
   }, [initialProjectName]);
 
+  // MOBILE MODE
   if (mobileMode) return (
     <div className="w-full flex items-center bg-app-light-gray shadow-lg sticky top-0 z-30">
       <button
@@ -135,6 +135,7 @@ const CreateOptionBar: FC<CreateOptionBarProps> = ({
     </div>
   );
 
+  // DESKTOP MODE
   return (
     <div
         className="w-full h-12 flex-shrink-0 bg-app-light-gray flex justify-between items-center gap-2 px-4 shadow-lg sticky top-0 z-30"

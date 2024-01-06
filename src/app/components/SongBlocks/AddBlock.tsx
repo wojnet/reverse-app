@@ -1,4 +1,5 @@
-import { FC, useEffect, useRef, useState } from 'react';
+"use client";
+import { FC, useRef, useState } from 'react';
 import { useClickAway } from "@uidotdev/usehooks";
 import { BlockType } from '@/types/blocks';
 import { Dispatch } from '@reduxjs/toolkit';

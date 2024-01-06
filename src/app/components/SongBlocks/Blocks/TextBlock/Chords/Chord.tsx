@@ -1,6 +1,6 @@
 import { ChordsType } from '@/types/song';
 import chordShapeToSymbol from '@/utils/chordShapeToSymbol';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 interface ChordProps {
   index: number,

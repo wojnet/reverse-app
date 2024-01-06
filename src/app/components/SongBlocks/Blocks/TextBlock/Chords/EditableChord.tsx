@@ -1,5 +1,5 @@
 "use client";
-import { changeChord, moveChord, removeChord } from '@/app/features/song/songSlice';
+import { moveChord, removeChord } from '@/app/features/song/songSlice';
 import { useAppDispatch } from '@/hooks/redux';
 import { ChordsType } from '@/types/song';
 import chordShapeToSymbol from '@/utils/chordShapeToSymbol';

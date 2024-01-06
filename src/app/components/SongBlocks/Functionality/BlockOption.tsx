@@ -1,5 +1,4 @@
-import { FC, lazy, useState } from 'react';
-import Modal from '../../Modal';
+import { FC, lazy } from 'react';
 
 const DuplicateIcon = lazy(() => import("../../Icons/DuplicateIcon"));
 const MenuIcon = lazy(() => import("../../Icons/MenuIcon"));

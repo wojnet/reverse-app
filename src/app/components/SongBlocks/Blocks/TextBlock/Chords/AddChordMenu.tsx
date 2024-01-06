@@ -1,6 +1,4 @@
-import { addChord } from '@/app/features/song/songSlice';
 import { RootNoteType, ShapeType } from '@/types/chords';
-import { Dispatch } from '@reduxjs/toolkit';
 import { useClickAway } from '@uidotdev/usehooks';
 import { ChangeEventHandler, FC, MouseEventHandler, MutableRefObject, useEffect, useState } from 'react';
 

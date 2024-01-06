@@ -1,11 +1,15 @@
 // "use client";
-import { FC, Suspense, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import ListItem from './ListItem';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { fetchProjectsData, selectFetchError, selectIsFetching, selectIsInsertingNewProject, selectProjectsData } from '@/app/features/projects/projectsSlice';
+import {
+  fetchProjectsData,
+  selectIsFetching,
+  selectIsInsertingNewProject,
+  selectProjectsData
+} from '@/app/features/projects/projectsSlice';
 import { ProjectType } from '@/types/project';
 import ListItemSkeleton from './ListItemSkeleton';
-import { AsyncThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 type ListProps = {
   setUrlParam: (key: string, value: string) => void,

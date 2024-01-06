@@ -8,7 +8,10 @@ import Resizer from './Resizer';
 import List from './List';
 import UserOptions from '../UserOptions/UserOptions';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { changeIsMobileNavbarVisible, selectIsMobileNavbarVisible } from '@/app/features/options/optionsSlice';
+import {
+  changeIsMobileNavbarVisible,
+  selectIsMobileNavbarVisible
+} from '@/app/features/options/optionsSlice';
 import { addNewProject } from '@/app/features/projects/projectsSlice';
 
 type ProjectNavigationProps = {
@@ -36,9 +39,9 @@ const ProjectNavigation: FC<ProjectNavigationProps> = ({
       width >= minWidth &&
       width <= maxWidth
     ) {
-        navigationRef.current.style.width = `${width}px`;
-        storage.setItem("editorNavigationWidth", width);
-      }
+      navigationRef.current.style.width = `${width}px`;
+      storage.setItem("editorNavigationWidth", width);
+    }
   }
 
   const handleAddNewProject = async () => {

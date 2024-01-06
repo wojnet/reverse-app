@@ -1,7 +1,6 @@
 "use client"
-import { FC, MouseEvent, useEffect, useState } from 'react';
-import { redirect, useSearchParams } from "next/navigation";
-import ListItemOptions from './ListItemOptions';
+import { FC, MouseEvent, useState } from 'react';
+import { useSearchParams } from "next/navigation";
 import ContextMenu, { ContextMenuOptionsType } from '../ContextMenu';
 import { useAppDispatch } from '@/hooks/redux';
 import { changeIsMobileNavbarVisible } from '@/app/features/options/optionsSlice';
@@ -88,8 +87,6 @@ const ListItem: FC<ListItemProps> = ({
         </p>
         { searchParamsId === id && <div className="absolute left-0 w-full h-full rounded-xl outline outline-2 outline-app-outline outline-offset-0 group-hover:outline-transparent"></div>}
       </button>
-      {/* <ListItemOptions */}
-      {/* /> */}
     </div>
   );
 }

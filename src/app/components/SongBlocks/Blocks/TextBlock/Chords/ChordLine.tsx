@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import { FC } from 'react';
 import { ChordsType } from '@/types/song';
 import Chord from './Chord';
 
@@ -21,8 +21,6 @@ const ChordLine: FC<ChordLineProps> = ({
   letterWidth,
   devMode,
 }) => {
-  const chordLineRef = useRef<HTMLDivElement>(null);
-  
   const chordElements = paragraph.chords?.map((chord, i) => {
     return (
       <Chord

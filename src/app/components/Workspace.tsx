@@ -18,19 +18,24 @@ import {
 import CreateOptionBar from './CreateOptionBar/CreateOptionBar';
 import ProjectNavigation from './ProjectNavigation/ProjectNavigation';
 import type { SongType } from '../../types/song';
-import { fetchSongData, saveChanges, selectIsLoading, selectIsSaved } from '../features/song/songSlice';
-import { changeEditMode, changeIsMobileNavbarVisible, changeMobileMode, selectEditMode, selectMobileMode, toggleEditMode } from '../features/options/optionsSlice';
+import {
+  fetchSongData,
+  saveChanges,
+  selectIsLoading,
+  selectIsSaved
+} from '../features/song/songSlice';
+import { 
+  changeIsMobileNavbarVisible,
+  changeMobileMode,
+  selectEditMode,
+  selectMobileMode,
+  toggleEditMode
+} from '../features/options/optionsSlice';
 import AddBlock from './SongBlocks/AddBlock';
 import { selectSongData } from '../features/song/songSlice';
 import { throttle } from 'lodash';
 
-type WorkspaceProps = {
-  // songData: SongType | undefined,
-}
-
-const Workspace: FC<WorkspaceProps> = ({
-  // songData,
-}) => {
+const Workspace: FC = () => {
   const dispatch = useAppDispatch();
 
   const songData: SongType | null = useAppSelector(selectSongData);
@@ -161,12 +166,12 @@ const Workspace: FC<WorkspaceProps> = ({
       </div> }
 
       { (!songData) && <div className="w-full h-full1 flex-1 flex flex-col items-center">
-        <button
-          className="text-3xl font-bold fixed top-3 left-3"
-          onClick={() => dispatch(changeIsMobileNavbarVisible(true))}
-        >
-          ☰
-        </button>
+        { mobileMode && <button
+            className="text-3xl font-bold fixed top-3 left-3"
+            onClick={() => dispatch(changeIsMobileNavbarVisible(true))}
+          >
+            ☰
+          </button> }
         <h2 className="text-2xl text-center m-10 animate-pulse">
           Choose or create a project
         </h2>
