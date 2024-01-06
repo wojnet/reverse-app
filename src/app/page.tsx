@@ -1,6 +1,7 @@
 import Link from "next/link";
 import MainHeader from "./components/MainHeader";
 import Image from "next/image";
+import CookieConsentComponent from "./components/CookieConsent";
 
 const Home = () => {
   return (
@@ -32,6 +33,14 @@ const Home = () => {
           >
             GET STARTED!
           </Link>
+          <CookieConsentComponent />
+          <Link
+            className="text-center text-xs text-indigo-700 opacity-90 z-[1000] hover:opacity-70 hover:italic transition"
+            href="https://www.freeprivacypolicy.com/live/d3eb1697-3ef6-48e2-ad1b-5794d4d80f45"
+            prefetch={false}
+          >
+            PRIVACY POLICY
+          </Link>
         </main>
         <div className="flex-1"></div>
         <footer
@@ -40,6 +49,7 @@ const Home = () => {
         <Link
           href="https://github.com/wojnet/reverse-app"
           target="_blank"
+          prefetch={false}
         >
           <img
             className="opacity-80 hover:opacity-40 cursor-pointer transition"

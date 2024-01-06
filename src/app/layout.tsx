@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 import SessionProvider from "./components/SessionProvider";
 import './globals.css';
 
-const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] })
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], preload: true })
 
 export const metadata: Metadata = {
   title: 'REVERSE APP',
