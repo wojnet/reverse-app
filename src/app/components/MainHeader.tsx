@@ -1,4 +1,4 @@
-"use client"
+// "use client"
 import { FC } from 'react';
 import { getServerSession } from "next-auth";
 import { redirect } from 'next/navigation';
