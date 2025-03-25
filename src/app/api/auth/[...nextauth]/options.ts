@@ -15,13 +15,13 @@ export const options: NextAuthOptions = {
       clientId: (process.env.GITHUB_ID as string) || "",
       clientSecret: (process.env.GITHUB_SECRET as string) || "",
     }),
-    // GoogleProvider({
-    //   clientId: (process.env.GOOGLE_ID as string) || "",
-    //   clientSecret: (process.env.GOOGLE_SECRET as string) || "",
-    // }),
+    GoogleProvider({
+      clientId: (process.env.GOOGLE_ID as string) || "",
+      clientSecret: (process.env.GOOGLE_SECRET as string) || "",
+    }),
   ],
   callbacks: {
-    async jwt({ token, user, account, profile, trigger }) {
+    async jwt({ token, user, account, trigger }) {
       const client = await clientPromise;
       const db = client.db("songwritingApp");
       let collection = db.collection("userData");
