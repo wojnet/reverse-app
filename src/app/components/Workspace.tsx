@@ -21,6 +21,7 @@ import type { SongType } from '../../types/song';
 import {
   fetchSongData,
   saveChanges,
+  selectIsLoaded,
   selectIsLoading,
   selectIsSaved
 } from '../features/song/songSlice';
@@ -39,7 +40,7 @@ import { defaultColors } from '@/data/defaultColors';
 const Workspace: FC = () => {
   const dispatch = useAppDispatch();
 
-  const songData: SongType | null = useAppSelector(selectSongData);
+  const songData: SongType = useAppSelector(selectSongData);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -47,6 +48,7 @@ const Workspace: FC = () => {
 
   const editMode: boolean = useAppSelector(selectEditMode);
   const mobileMode: boolean = useAppSelector(selectMobileMode);
+  const isLoaded: boolean = useAppSelector(selectIsLoaded);
   const isSaved = useAppSelector(selectIsSaved);
   const isLoading = useAppSelector(selectIsLoading);
 
@@ -124,15 +126,19 @@ const Workspace: FC = () => {
   const throttledHandleResize = throttle(handleResize, 100);
 
   useEffect(() => {
-    dispatch(fetchSongData({ id: idParam }));
+    if (idParam) {
+      dispatch(fetchSongData({ id: idParam }));
+    }
   }, [idParam]);
 
   useEffect(() => {
-    dispatch(changeMobileMode(
-      window.innerWidth >= 600 ?
-      false :
-      true
-    ));
+    if (!isLoaded) {
+      setUrlParam("id", "");
+    }
+  }, [isLoaded]);
+
+  useEffect(() => {
+    dispatch(changeMobileMode(window.innerWidth >= 600 ? false : true));
 
     window.addEventListener("resize", throttledHandleResize);
 
@@ -148,11 +154,11 @@ const Workspace: FC = () => {
         mobileMode={mobileMode}
       />
 
-      { songData?.contents.length && <div
+      { isLoaded && <div
         className="w-full h-full flex-1 flex flex-col items-center overflow-x-hidden overflow-y-auto"
       >
         <CreateOptionBar 
-          initialProjectName={songData.name}
+          initialProjectName={songData?.name || ""}
           setUrlParam={setUrlParam}
         />
         <div
@@ -170,7 +176,7 @@ const Workspace: FC = () => {
         </div>
       </div> }
 
-      { (!songData) && <div className="w-full h-full1 flex-1 flex flex-col items-center">
+      { !isLoaded && <div className="w-full h-full1 flex-1 flex flex-col items-center">
         { mobileMode && <button
             className="text-3xl font-bold fixed top-3 left-3"
             onClick={() => dispatch(changeIsMobileNavbarVisible(true))}
@@ -178,7 +184,7 @@ const Workspace: FC = () => {
             ☰
           </button> }
         <h2 className="text-2xl text-center m-10 animate-pulse">
-          Choose or create a project
+          Select or create a project
         </h2>
       </div> }
     </>

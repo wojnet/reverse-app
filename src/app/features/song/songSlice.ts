@@ -16,6 +16,7 @@ import { defaultColors } from "@/data/defaultColors";
   
 export type SongState = {
   songData: SongType,
+  isLoaded: boolean,
   isLoading: boolean,
   error: string | null | undefined,
   isSaved: boolean,
@@ -30,6 +31,7 @@ const initialState: SongState = {
     contents: [],
     colors: defaultColors,
   },
+  isLoaded: false,
   isLoading: false,
   error: null,
   isSaved: true,
@@ -61,6 +63,9 @@ export const songSlice = createSlice({
   name: "song",
   initialState,
   reducers: {
+    clearSongData: () => {
+      return initialState;
+    },
     addBlock: (state, action) => {
       if (state.songData === null) return;
 
@@ -230,10 +235,12 @@ export const songSlice = createSlice({
       };
     });
     builder.addCase(fetchSongData.fulfilled, (state, action) => {
+      state.isLoaded = true;
       state.isLoading = false;
       state.songData = action.payload;
     });
     builder.addCase(fetchSongData.rejected, (state, action) => {
+      state.isLoaded = false;
       state.isLoading = false;
       state.error = action.error.message;
     });
@@ -252,6 +259,7 @@ export const songSlice = createSlice({
 });
 
 export const {
+  clearSongData,
   addBlock,
   changeBlock,
   moveBlock,
@@ -263,6 +271,7 @@ export const {
   changeColor,
 } = songSlice.actions;
 
+export const selectIsLoaded = (state: RootState) => state.song.isLoaded;
 export const selectSongData = (state: RootState) => state.song.songData;
 export const selectIsLoading = (state: RootState) => state.song.isLoading;
 export const selectError = (state: RootState) => state.song.error;

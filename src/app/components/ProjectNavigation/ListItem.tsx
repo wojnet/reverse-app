@@ -5,6 +5,7 @@ import ContextMenu, { ContextMenuOptionsType } from '../ContextMenu';
 import { useAppDispatch } from '@/hooks/redux';
 import { changeIsMobileNavbarVisible } from '@/app/features/options/optionsSlice';
 import { deleteProject } from '@/app/features/projects/projectsSlice';
+import { clearSongData } from '@/app/features/song/songSlice';
 
 type ListItemProps = {
   id: string,
@@ -44,6 +45,10 @@ const ListItem: FC<ListItemProps> = ({
     }
   }
 
+  const handleCloseProject = () => {
+    dispatch(clearSongData());
+  }
+
   const handleOnContextMenu = (event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     event.preventDefault();
     const { pageX, pageY } = event;
@@ -75,18 +80,24 @@ const ListItem: FC<ListItemProps> = ({
         y={contextMenu.y}
         closeContextMenu={closeContextMenu}
       /> }
+      { searchParamsId === id && <button
+          className="absolute h-6 w-6 flex items-center justify-center bg-app-gray text-rose-500 rounded-lg outline outline-2 outline-app-outline outline-offset-0 z-20 translate-x-[-8px] translate-y-[-8px] hover:outline hover:outline-2 hover:outline-app-lighter-outline hover:scale-95 transition select-none"
+          onClick={handleCloseProject}
+        >&#10006;</button>
+      }
       <button
         onClick={onSelectProject}
         onContextMenu={handleOnContextMenu}
         className="relative w-full h-10 sm:h-12 bg-app-gray flex justify-between items-center shadow-md rounded-xl px-3 cursor-pointer outline-transparent hover:outline hover:outline-2 hover:outline-app-lighter-outline hover:scale-95 select-none z-10 group transition"
       >
         <p
-          className="italic text-sm sm:text-[16px] whitespace-nowrap overflow-hidden px-1"
+          className="italic text-sm sm:text-[16px] whitespace-nowrap overflow-hidden text-ellipsis"
         >
           {name}
         </p>
         { searchParamsId === id && <div className="absolute left-0 w-full h-full rounded-xl outline outline-2 outline-app-outline outline-offset-0 group-hover:outline-transparent"></div>}
       </button>
+      
     </div>
   );
 }
