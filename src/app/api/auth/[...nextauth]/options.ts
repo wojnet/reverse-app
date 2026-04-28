@@ -7,18 +7,10 @@ import sampleSong from "@/data/sample/sampleSong";
 
 export const options: NextAuthOptions = {
   providers: [
-    SpotifyProvider({
-      clientId: (process.env.SPOTIFY_ID as string) || "",
-      clientSecret: (process.env.SPOTIFY_SECRET as string) || "",
-    }),
     GitHubProvider({
       clientId: (process.env.GITHUB_ID as string) || "",
       clientSecret: (process.env.GITHUB_SECRET as string) || "",
-    }),
-    GoogleProvider({
-      clientId: (process.env.GOOGLE_ID as string) || "",
-      clientSecret: (process.env.GOOGLE_SECRET as string) || "",
-    }),
+    })
   ],
   callbacks: {
     async jwt({ token, user, account, trigger }) {
